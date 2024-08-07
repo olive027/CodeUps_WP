@@ -9,7 +9,7 @@ $('.js-hamburger').click(function(){
 });
 
 //============================loading==================================
-// js-loadingがある時の身ローディング処理を行う
+// js-loadingがある時のみローディング処理を行う
 if (document.querySelector('.js-loading')) {
   var tl = gsap.timeline();
   tl.fromTo('.js-img-left', {
@@ -45,47 +45,6 @@ if (document.querySelector('.js-loading')) {
     ease: "power2.out",
   },"<");
 
-<<<<<<< HEAD
-// ローディングが始まる前にbodyにoverflow: hiddenを追加してスクロールを無効化
-// document.body.style.overflow = 'hidden';
-
-if (document.querySelector('.js-loading')) {
-  var tl = gsap.timeline();
-  tl.fromTo('.js-img-left', {
-    y: "120%",
-  },{
-    delay: 0.3,
-    y: 0,
-    duration: 1.2,
-  })
-  .fromTo('.js-img-right', {
-    y: "120%",
-  },{
-    y: 0,
-    duration: 1.2,
-  },"<10.4166%")
-  .fromTo('.js-mv-title',{
-    autoAlpha: 0,
-    y: 50,
-  },{
-    autoAlpha: 1,
-    y: 0,
-    duration: 0.7,
-  },"+=0.2")
-  .to('.js-loading',{
-    display: "none",
-    duration: 1,
-  },"+=0.3")
-  .to('.js-container', {
-    display: "block",
-    opacity: 1,
-    visibility: "visible",
-    duration: 1.3,
-    ease: "power2.out",
-  },"<");
-
-=======
->>>>>>> e99755d6ae71137453061675d6a728715f7a2fcf
   tl.eventCallback('onComplete', function () {
     initSwiper();
     nextSwiper();
