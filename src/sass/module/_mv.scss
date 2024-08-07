@@ -1,0 +1,39 @@
+@use "global" as *;
+
+.mv {
+	width: 100%;
+	height: 100vh;
+	height: 100dvh;
+}
+
+.mv__inner {
+	width: 100%;
+	height: inherit;
+	position: relative;
+}
+
+.mv__slider,
+.swiper-slide picture,
+.swiper-slide img {
+	width: 100%;
+	height: inherit;
+}
+
+.swiper-slide img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	aspect-ratio: 375 / 667;
+	@include mq(md){
+		aspect-ratio: 1440 / 768;
+	}
+}
+
+.mv__title-wrap {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	text-align: center;
+	z-index: 2;
+}

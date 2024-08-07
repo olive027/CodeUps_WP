@@ -1,0 +1,23 @@
+@use "global" as *;
+
+.fish-icon {
+	position: relative;
+}
+
+.fish-icon::before {
+	content: "";
+	width: rem(120);
+	height: rem(55);
+	background: url(../images/common/fish-campaign.png) no-repeat;
+	background-size: contain;
+	position: absolute;
+	top: rem(-148);
+	left: calc(50% - min(49vw, rem(173.5)));
+	z-index: -1;
+	@include mq(md){
+		width: rem(300);
+		height: rem(138);
+		top: rem(-144);
+		left: calc(50% - min(49vw, rem(619)));
+	}
+}

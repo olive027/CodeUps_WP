@@ -1,0 +1,76 @@
+@use "global" as *;
+
+.about-gallery {
+	margin-top: rem(33.6);
+	@include mq(md){
+		margin-top: rem(115.2);
+	}
+}
+
+.about-gallery.fish-icon::before {
+	display: none;
+	@include mq(md){
+		display: block;
+		transform: scaleX(-1);
+		top: rem(-75);
+		left: inherit;
+		right: calc(50% - min(49vw, rem(639)));
+	}
+}
+
+.about-gallery__images {
+	margin-top: rem(40);
+	display: grid;
+	grid-auto-flow: dense;
+	grid-template-columns: 1fr;
+	gap: rem(8);
+	@include mq(md){
+		margin-top: rem(80);
+		grid-template-columns: repeat(13, 1fr);
+	}
+}
+
+.about-gallery__img {
+	@include mq(md){
+		grid-row: span 1;
+		grid-column: span 7;
+		cursor: pointer;
+		transition: opacity .6s;
+	}
+}
+
+.about-gallery__img:hover {
+	opacity: .7;
+}
+
+.about-gallery__img:nth-child(6n+1),
+.about-gallery__img:nth-child(6n+6) {
+	@include mq(md){
+		grid-row: span 2;
+		grid-column: span 6;
+	}
+}
+
+.about-gallery__img:nth-child(6n+1) img,
+.about-gallery__img:nth-child(6n+6) img {
+	aspect-ratio: 345 / 524;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	@include mq(md){
+		aspect-ratio: 492 / 746;
+	}
+}
+
+.about-gallery__img:nth-child(6n+2) img,
+.about-gallery__img:nth-child(6n+3) img,
+.about-gallery__img:nth-child(6n+4) img,
+.about-gallery__img:nth-child(6n+5) img {
+	aspect-ratio: 345 / 219;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	@include mq(md){
+		aspect-ratio: 580 / 369;
+	}
+}

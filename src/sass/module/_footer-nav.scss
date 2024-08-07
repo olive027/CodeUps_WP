@@ -1,0 +1,80 @@
+@use 'global' as *;
+
+.footer-nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	gap: rem(18);
+	white-space: nowrap;
+	@include mq(md){
+		gap: rem(30);
+	}
+}
+
+.footer-nav__left,
+.footer-nav__right {
+	width: calc(50% - rem(5));
+	@include mq(md){
+		width: 50%;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		height: rem(242);
+	}
+}
+
+.footer-nav__left-items,
+.footer-nav__right-items {
+	margin-top: rem(16);
+	@include mq(md){
+		margin-top: rem(5);
+		width: 51.5%;
+	}
+}
+.footer-nav__left-items:nth-child(2n),
+.footer-nav__right-items:nth-child(2n),
+.footer-nav__right-items:nth-child(5) {
+	@include mq(md){
+		margin-top: rem(16);
+	}
+}
+
+.footer-nav__left-items:nth-child(n+3) {
+	@include mq(md){
+		margin-left: 16px;
+	}
+}
+
+.footer-nav__left-item a,
+.footer-nav__right-item a {
+	display: block;
+	color: $white;
+	padding: rem(12) 0 rem(12) rem(22);
+	cursor: pointer;
+	line-height: calc(18 / 16);
+	font-weight: $regular;
+}
+
+.footer-nav__left-item a:hover,
+.footer-nav__right-item a:hover {
+	opacity: .6;
+}
+
+.footer-nav__left-item:first-child a,
+.footer-nav__right-item:first-child a {
+	font-weight: $bold;
+	position: relative;
+}
+
+.footer-nav__left-item:first-child a::before,
+.footer-nav__right-item:first-child a::before {
+	display: inline-block;
+	content: "";
+	width: rem(18);
+	height: rem(18);
+	background: url(../images/common/hitode.png) no-repeat;
+	background-size: contain;
+	position: absolute;
+	top: rem(12);
+	left: rem(2);
+}

@@ -1,0 +1,126 @@
+@use "global" as *;
+
+.blog-body__content.fish-icon::before {
+	top: rem(-24);
+	@include mq(md){
+		top: rem(-70);
+	}
+}
+
+.blog-body__content {
+	@include mq(md){
+		display: flex;
+		gap: rem(80);
+	}
+}
+
+.blog-body__cards {
+	margin: 0 rem(6);
+	@include mq(md){
+		margin: 0;
+	}
+}
+
+// ====== single.html =============
+.blog-body__main {
+	@include mq(md){
+		width: 85%;
+	}
+}
+.blog-body__date {
+	font-family: $english-font-family;
+	font-size: rem(14);
+	font-weight: $normal;
+	line-height: calc(18 / 14);
+	background: $white;
+}
+
+.blog-body__title {
+	font-size: rem(24);
+	font-weight: $medium;
+	margin-top: rem(8);
+	border-bottom: 1px solid $green1;
+	// background: $white;
+	@include mq(md){
+		margin-top: rem(4);
+		font-size: rem(32);
+		font-weight: $normal;
+	}
+}
+
+.blog-body__image,
+.blog-body__singleContent figure {
+	aspect-ratio: 345 / 231;
+	margin-top: rem(24);
+	@include mq(md){
+		aspect-ratio: 702 / 468;
+		margin-top: rem(39);
+	}
+}
+
+.blog-body__image img,
+.blog-body__singleContent figure img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.blog-body__singleContent p {
+	margin-top: rem(24);
+	@include mq(md){
+		margin-top: rem(40);
+	}
+}
+
+.blog-body__singleContent ul {
+	margin-top: rem(24);
+	@include mq(md){
+		margin-top: rem(40);
+	}
+}
+
+.blog-body__singleContent ul li {
+	line-height: calc(24 / 16);
+	display: flex;
+	gap: rem(9);
+	align-items: flex-start;
+}
+
+.blog-body__singleContent ul li::before {
+	content: "";
+	width: rem(18);
+	height: rem(18);
+	background: url(../images/common/hitode-green.png) no-repeat;
+	background-size: contain;
+	flex-shrink: 0;
+  margin-top: rem(3);
+}
+
+.blog-body__singleContent ul li:nth-child(n+2) {
+	margin-top: rem(4);
+}
+// ===== ここまでsingle.htmlの内容を含む =============
+
+.blog-body__pagination {
+	margin-top: rem(80);
+}
+
+.blog-body__pagination--single {
+	margin-top: rem(40);
+	@include mq(md){
+		margin-top: rem(80);
+	}
+}
+
+.blog-body__side {
+	margin-top: rem(80);
+	@include mq(md){
+		margin-top: 0;
+	}
+}
+
+.blog-body__side--single {
+	@include mq(md){
+		width: 34.9%;
+	}
+}

@@ -1,0 +1,90 @@
+@use "global" as *;
+
+.pagination-wrap {
+	display: flex;
+	justify-content: center;
+	gap: rem(40);
+}
+
+.pagination-wrap.pagination-wrap--single {
+	gap: rem(82);
+	@include mq(md){
+		margin-right: rem(31);
+	}
+}
+
+.pagination-wrap__items {
+	display: flex;
+	justify-content: center;
+	gap: rem(12);
+}
+
+.pagination-wrap__item {
+	width: rem(38);
+	height: rem(38);
+	border: 1px solid $green1;
+	color: $green1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	transition: background .4s, color .4s;
+}
+
+.pagination-wrap__item.current {
+	color: #fff;
+	background: $green1;
+}
+
+.pagination-wrap__item:hover {
+	color: $white;
+	background: $green1;
+}
+
+.pagination-wrap__item.current:hover {
+	color: $green1;
+	background: $white;
+}
+
+.pagination-wrap__prev,
+.pagination-wrap__next {
+	width: rem(38);
+	height: rem(38);
+	border: 1px solid $green1;
+	display: flex;
+	align-items: center;
+	position: relative;
+	cursor: pointer;
+	transition: background .4s;
+}
+
+.pagination-wrap__prev::before,
+.pagination-wrap__next::before {
+	content: "";
+	width: rem(10);
+	height: rem(10);
+	border-top: 1px solid $green1;
+	border-left: 1px solid $green1;
+	position: absolute;
+	transition: border-color .4s;
+}
+
+.pagination-wrap__prev::before {
+	transform: rotate(-45deg);
+	left: 42%;
+}
+
+.pagination-wrap__next::before {
+	transform: rotate(135deg);
+	left: 31%;
+}
+
+.pagination-wrap__prev:hover,
+.pagination-wrap__next:hover {
+	background: $green1;
+}
+
+.pagination-wrap__prev:hover::before,
+.pagination-wrap__next:hover::before {
+	border-color: $white;
+}

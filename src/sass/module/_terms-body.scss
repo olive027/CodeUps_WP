@@ -1,0 +1,52 @@
+@use "global" as *;
+
+.terms-body__inner.inner {
+	max-width: rem(800);
+}
+
+.terms-body.fish-icon::before {
+	top: rem(-24);
+	@include mq(md){
+		left: calc(50% - min(49vw, 38.7625rem));
+    top: rem(-70);
+	}
+}
+
+.terms-body__title {
+	font-size: rem(24);
+	font-weight: $medium;
+	@include mq(md){
+		font-size: rem(32);
+	}
+}
+
+.terms-body__item {
+	margin-top: rem(34);
+	@include mq(md){
+		margin-top: rem(32);
+	}
+}
+.terms-body__text {
+	margin-top: rem(38);
+}
+
+.terms-body__text--last {
+	margin-top: rem(32);
+}
+
+.terms-body__text,
+.terms-body__item-text {
+	font-size: rem(16);
+	font-weight: $normal;
+	line-height: 1.996;
+	@include mq(md){
+		line-height: 1.998;
+	}
+}
+
+.terms-body__item-number {
+	list-style: decimal;
+	list-style-position: inside;
+	padding-left: rem(23);
+	text-indent: -1em;
+}

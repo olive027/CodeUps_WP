@@ -1,0 +1,45 @@
+@use "global" as *;
+
+.tab {
+	display: flex;
+	flex-wrap: wrap;
+	gap: rem(21);
+	row-gap: rem(16);
+	@include mq(md){
+		column-gap: rem(32);
+	}
+}
+
+.tab__item {
+	width: rem(162);
+}
+
+.tab__item a {
+	font-size: rem(14);
+	line-height: calc(22 / 14);
+	font-weight: $normal;
+	text-transform: uppercase;
+	color: $green1;
+	background: $white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: rem(5) 0;
+	border: 1px solid $green1;
+	transition: background .4s, color .4s;
+}
+
+.tab__item.current a {
+	background: $green1;
+	color: $white;
+}
+
+.tab__item a:hover {
+	background: $green1;
+	color: $white;
+}
+
+.tab__item.current a:hover {
+	background: $white;
+	color: $green1;
+}

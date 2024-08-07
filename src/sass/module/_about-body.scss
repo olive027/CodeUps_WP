@@ -1,0 +1,7 @@
+@use "global" as *;
+
+.about-body__content {
+	@include mq(md){
+		margin-left: rem(3.8);
+	}
+}

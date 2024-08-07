@@ -1,0 +1,26 @@
+@use "global" as *;
+
+.button-form.button {
+	cursor: pointer;
+	@include mq(md){
+		padding: 15px 88px 16px 26px;
+	}
+
+}
+
+.button-form.button input {
+	color: $white;
+	text-transform: capitalize;
+	transition: color .3s;
+}
+
+.button-form.button span::after {
+	top: 43%;
+	right: rem(47);
+	width: rem(50);
+	height: rem(7);
+}
+
+.button-form.button:hover input {
+	color: $green1;
+}

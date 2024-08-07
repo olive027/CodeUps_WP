@@ -1,0 +1,14 @@
+@use "global" as *;
+
+.layout-body-contact {
+	margin-top: rem(106);
+	@include mq(md){
+		margin-top: rem(140);
+	}
+}
+
+.layout-body-contact--about {
+	@include mq(md){
+		margin-top: rem(136);
+	}
+}

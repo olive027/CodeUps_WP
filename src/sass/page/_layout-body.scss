@@ -1,0 +1,42 @@
+@use "global" as *;
+
+.layout-body {
+	margin-top: rem(52);
+	@include mq(md){
+		margin-top: rem(150);
+	}
+}
+
+.layout-body--information {
+	margin-top: rem(119);
+	@include mq(md){
+		margin-top: rem(150);
+	}
+}
+
+.layout-body--faq {
+	@include mq(md){
+		margin-top: rem(149);
+	}
+}
+
+.layout-body--contact {
+	margin-top: rem(51);
+	@include mq(md){
+		margin-top: rem(149);
+	}
+}
+
+.layout-body--thanks {
+	margin-top: rem(49);
+	@include mq(md){
+		margin-top: rem(147);
+	}
+}
+
+.layout-body--sitemap {
+	margin-top: rem(24);
+	@include mq(md){
+		margin-top: rem(122);
+	}
+}

@@ -1,0 +1,77 @@
+@use "global" as *;
+.campaign__inner {
+	position: relative;
+}
+
+.campaign__slider {
+	margin-right: calc(50% - 50vw);
+	padding-bottom: rem(10);
+	margin-top: rem(27);
+	@include mq(md){
+		margin-top: rem(39);
+	}
+}
+
+.campaign__slider .swiper-slide img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	aspect-ratio: 280 / 188;
+	@include mq(md){
+		aspect-ratio: 333 / 223;
+	}
+}
+
+/* 前へ次への矢印カスタマイズ */
+.campaign__button-prev,
+.campaign__button-next {
+	width: rem(80);
+	height: rem(80);
+	position: absolute;
+	top: rem(6);
+	transition: opacity .5s;
+	cursor: pointer;
+}
+
+.campaign__button-prev::after,
+.campaign__button-next::after {
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: "";
+  height: rem(80);
+  width: rem(80);
+  margin: auto;
+	display: none;
+	@include mq(md){
+		display:block;
+	}
+}
+/* 前への矢印カスタマイズ */
+.campaign__button-prev::after {
+	background-image: url(../images/common/arrow-prev.png);
+}
+/* 次への矢印カスタマイズ */
+.campaign__button-next::after {
+	background-image: url(../images/common/arrow-next.png);
+}
+
+.campaign__button-prev {
+	left: 76.5%;
+}
+
+.campaign__button-next {
+	right: 2.2%;
+}
+
+.campaign__button-prev:hover,
+.campaign__button-next:hover {
+	opacity: .7;
+}
+
+.campaign__link {
+	margin-top: rem(31);
+	text-align: center;
+	@include mq(md){
+		margin-top: rem(70);
+	}
+}

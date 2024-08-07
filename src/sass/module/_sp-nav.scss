@@ -1,0 +1,64 @@
+@use 'global' as *;
+
+.sp-nav {
+	background: $green1;
+	height: 100vh;
+	height: 100dvh;
+	width: 100%;
+	padding-top: rem(77);
+	position: fixed;
+	top: 0;
+	right: 0;
+	z-index: 5000;
+}
+
+.sp-nav__inner {
+	height: 100%;
+	display: flex;
+	padding: 0 rem(15) rem(83);
+	overflow-y: scroll;
+}
+
+.sp-nav__left-items,
+.sp-nav__right-items {
+	margin-top: rem(16);
+}
+
+.sp-nav__left,
+.sp-nav__right {
+	width: 50%;
+}
+
+.sp-nav__left-item a,
+.sp-nav__right-item a {
+	display: block;
+	color: $white;
+	padding: rem(12) 0 rem(12) rem(22);
+	cursor: pointer;
+	line-height: calc(18 / 16);
+	font-weight: $regular;
+}
+
+.sp-nav__left-item:first-child a,
+.sp-nav__right-item:first-child a {
+	font-weight: $bold;
+	position: relative;
+}
+
+.sp-nav__left-item:first-child a::before,
+.sp-nav__right-item:first-child a::before {
+	display: inline-block;
+	content: "";
+	width: rem(18);
+	height: rem(18);
+	background: url(../images/common/hitode.png) no-repeat;
+	background-size: contain;
+	position: absolute;
+	top: rem(12);
+	left: rem(2);
+}
+
+html.is-fixed {
+	overflow: hidden;
+	height: 100%;
+}

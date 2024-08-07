@@ -1,0 +1,24 @@
+@use "global" as *;
+
+.thanks-body.fish-icon::before {
+	top: rem(-22);
+	@include mq(md){
+		left: calc(50% - min(49vw, 38.7625rem));
+    top: rem(-68);
+	}
+}
+
+.thanks-body__head,
+.thanks-body__text {
+	font-size: rem(16);
+	font-weight: $normal;
+	text-align: center;
+	line-height: 1.466;
+}
+
+.thanks-body__text {
+	margin-top: rem(35);
+	@include mq(md){
+		margin-top: rem(36);
+	}
+}

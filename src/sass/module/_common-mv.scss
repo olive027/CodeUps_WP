@@ -1,0 +1,71 @@
+@use "global" as *;
+
+.common-mv {
+	width: 100%;
+	height: rem(460);
+	@include mq(md){
+		height: rem(548);
+	}
+}
+
+.common-mv__inner {
+	width: 100%;
+	height: inherit;
+	position: relative;
+}
+
+.common-mv__image {
+	width: 100%;
+	height: inherit;
+}
+
+.common-mv__image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	aspect-ratio: 375 / 460;
+	@include mq(md){
+		aspect-ratio: 1440 / 548;
+	}
+}
+
+.common-mv__title-wrap {
+	position: absolute;
+	top: 43.4%;
+	left: 50%;
+	transform: translateX(-50%);
+	text-align: center;
+	@include mq(md){
+		top: 48%;
+	}
+}
+
+.common-mv__title {
+	font-size: rem(40);
+	font-weight: $normal;
+	font-family: $english2-font-family;
+	color: $white;
+	@include mq(md){
+		font-size: rem(80);
+	}
+}
+
+
+.common-mv__title::first-letter {
+	text-transform: capitalize;
+}
+
+.common-mv__title span {
+	text-transform: lowercase;
+}
+
+.common-mv__title--about {
+	@include mq(md){
+		letter-spacing: 0.01em;
+	}
+}
+
+.common-mv__title--privacy,
+.common-mv__title--terms {
+	text-transform: capitalize;
+}

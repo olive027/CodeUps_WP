@@ -1,0 +1,106 @@
+@use "global" as *;
+.information-body.fish-icon::before {
+	top: rem(-92);
+	@include mq(md){
+		top: rem(-71);
+	}
+}
+
+.information-body__tabs {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: rem(19);
+	@include mq(md){
+		flex-wrap: nowrap;
+		gap: rem(90);
+	}
+}
+
+.information-body__tab {
+	width: rem(102);
+	cursor: pointer;
+	@include mq(md){
+		width: rem(300);
+	}
+
+}
+.information-body__tab span {
+	background: $green2;
+	color: $green1;
+	padding: rem(10) 0 9px;
+	font-size: rem(14);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	transition: background .4s, color .4s;
+	@include mq(md){
+		font-size: rem(24);
+		padding: rem(13) 0 rem(12);
+	}
+}
+
+.information-body__tab span:hover {
+	background: $green1;
+	color: $white;
+}
+
+.information-body__tab.current span {
+	background: $green1;
+	color: $white;
+	box-shadow: rem(2) rem(2) rem(4) rgb(0 0 0 / .25);
+}
+
+.information-body__tab span::before {
+	@include mq(md){
+		content: "";
+		width: rem(64);
+		height: rem(64);
+		margin-right: rem(8);
+	}
+}
+
+.information-body__tab:first-child span::before {
+	@include mq(md){
+		background: currentColor;
+		mask-image: url(../images/common/whale-icon.svg);
+		mask-repeat: no-repeat;
+		-webkit-mask-image: url(../images/common/whale-icon.svg);
+		-webkit-mask-repeat: no-repeat;
+		mask-size: contain;
+		-webkit-mask-size: contain;
+	}
+}
+
+.information-body__tab:nth-child(2) span::before {
+	@include mq(md){
+		background: currentColor;
+		mask-image: url(../images/common/shark-icon.svg);
+		mask-repeat: no-repeat;
+		-webkit-mask-image: url(../images/common/shark-icon.svg);
+		-webkit-mask-repeat: no-repeat;
+		mask-size: contain;
+		-webkit-mask-size: contain;
+	}
+}
+
+.information-body__tab:nth-child(3) span::before {
+	@include mq(md){
+		background: currentColor;
+		mask-image: url(../images/common/seafood-icon.svg);
+		mask-repeat: no-repeat;
+		-webkit-mask-image: url(../images/common/seafood-icon.svg);
+		-webkit-mask-repeat: no-repeat;
+		mask-size: contain;
+		-webkit-mask-size: contain;
+	}
+}
+
+.information-body__content-wrap {
+	display: none;
+	margin-top: rem(16);
+	@include mq(md){
+		margin-top: rem(24);
+	}
+}

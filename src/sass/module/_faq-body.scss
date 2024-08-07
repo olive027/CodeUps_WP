@@ -1,0 +1,13 @@
+@use "global" as *;
+
+.faq-body__inner.inner {
+	max-width: rem(700);
+}
+
+.faq-body__accordion.fish-icon::before {
+	top: rem(-24);
+	@include mq(md){
+		left: calc(50% - min(49vw, 38.6625rem));
+    top: rem(-71.2);
+	}
+}
