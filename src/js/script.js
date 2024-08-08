@@ -49,7 +49,6 @@ if (document.querySelector('.js-loading')) {
     initSwiper();
     nextSwiper();
   });
-}
 
 //====================mv swiper=========----===========
 // swiper
@@ -92,6 +91,7 @@ function nextSwiper(){
       prevEl: ".js-campaign-btn-prev",
     },
   })
+};
 };
 
 // ======== 画像の出現アニメーション ==----===============

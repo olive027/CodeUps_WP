@@ -11,6 +11,48 @@ jQuery(function ($) {
   //============================loading==================================
   // js-loadingがある時のみローディング処理を行う
   if (document.querySelector('.js-loading')) {
+    //====================mv swiper=========----===========
+    // swiper
+    var initSwiper = function initSwiper() {
+      var swiper = new Swiper(".js-mv-swiper", {
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false
+        },
+        effect: 'fade',
+        speed: 2500,
+        allowTouchMove: false
+      });
+    };
+    //============== campaign swiper======================
+    var nextSwiper = function nextSwiper() {
+      var swiper = new Swiper(".js-campaign-swiper", {
+        loop: true,
+        autoplay: {
+          delay: 1000,
+          disableOnInteraction: false
+        },
+        speed: 2000,
+        // slidesPerView: 1.26, // 一度に表示する枚数
+        loopAdditionalSlides: 4,
+        width: 280,
+        spaceBetween: 24,
+        // スライド間の距離
+        freeMode: true,
+        freeModeSticky: true,
+        breakpoints: {
+          768: {
+            width: 333
+          }
+        },
+        // 前後の矢印
+        navigation: {
+          nextEl: ".js-campaign-btn-next",
+          prevEl: ".js-campaign-btn-prev"
+        }
+      });
+    };
     var tl = gsap.timeline();
     tl.fromTo('.js-img-left', {
       y: "120%"
@@ -44,51 +86,8 @@ jQuery(function ($) {
       initSwiper();
       nextSwiper();
     });
-  }
-
-  //====================mv swiper=========----===========
-  // swiper
-  function initSwiper() {
-    var swiper = new Swiper(".js-mv-swiper", {
-      loop: true,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false
-      },
-      effect: 'fade',
-      speed: 2500,
-      allowTouchMove: false
-    });
-  }
-  ;
-
-  //============== campaign swiper======================
-  function nextSwiper() {
-    var swiper = new Swiper(".js-campaign-swiper", {
-      loop: true,
-      autoplay: {
-        delay: 1000,
-        disableOnInteraction: false
-      },
-      speed: 2000,
-      // slidesPerView: 1.26, // 一度に表示する枚数
-      loopAdditionalSlides: 4,
-      width: 280,
-      spaceBetween: 24,
-      // スライド間の距離
-      freeMode: true,
-      freeModeSticky: true,
-      breakpoints: {
-        768: {
-          width: 333
-        }
-      },
-      // 前後の矢印
-      navigation: {
-        nextEl: ".js-campaign-btn-next",
-        prevEl: ".js-campaign-btn-prev"
-      }
-    });
+    ;
+    ;
   }
   ;
 
