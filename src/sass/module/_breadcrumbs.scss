@@ -35,3 +35,11 @@
 	background: url(../images/common/breadcrumbs-arrow-white.png) no-repeat;
 	background-size: contain;
 }
+
+// WP
+.breadcrumbs__item span:first-child {
+	margin-right: rem(4);
+}
+.breadcrumbs__item span:nth-child(n+2) {
+	margin-left: rem(4);
+}

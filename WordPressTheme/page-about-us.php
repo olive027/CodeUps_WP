@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: about
+Template Name: about-us
 */?>
 <?php get_header(); ?>
 
@@ -9,8 +9,9 @@ Template Name: about
 		<div class="common-mv__inner">
 			<div class="common-mv__image">
 				<picture>
-					<source srcset="./assets/images/common/about-mv-sp.jpg" media="(max-width:767px)">
-					<img src="./assets/images/common/about-mv.jpg" alt="海中を泳ぐ黄色い魚の画像">
+					<source srcset="<?php echo get_theme_file_uri(''); ?>/assets/images/common/about-mv-sp.jpg"
+						media="(max-width:767px)">
+					<img src="<?php echo get_theme_file_uri(''); ?>/assets/images/common/about-mv.jpg" alt="海中を泳ぐ黄色い魚の画像">
 				</picture>
 			</div>
 			<div class="common-mv__title-wrap">
@@ -24,9 +25,13 @@ Template Name: about
 		<div class="breadcrumbs__inner inner">
 			<ul class="breadcrumbs__items">
 				<li class="breadcrumbs__item">
-					<a href="index.html">top</a>
+					<?php
+						if ( function_exists( 'bcn_display' ) ) {
+							bcn_display();
+						}
+					?>
 				</li>
-				<li class="breadcrumbs__item">私たちについて</li>
+				<!-- <li class="breadcrumbs__item">私たちについて</li> -->
 			</ul>
 		</div>
 	</div>
@@ -37,10 +42,11 @@ Template Name: about
 			<div class="about-body__content about__body fish-icon">
 				<div class="about__img-wrap">
 					<div class="about__img-small u-desktop">
-						<img src="./assets/images/common/about-img01.jpg" alt="屋根の上にシーサーが乗っている画像">
+						<img src="<?php echo get_theme_file_uri(''); ?>/assets/images/common/about-img01.jpg"
+							alt="屋根の上にシーサーが乗っている画像">
 					</div>
 					<div class="about__img-big about__img-big--page">
-						<img src="./assets/images/common/about-img02.jpg" alt="海中で黄色い魚が泳いでいる画像">
+						<img src="<?php echo get_theme_file_uri(''); ?>/assets/images/common/about-img02.jpg" alt="海中で黄色い魚が泳いでいる画像">
 					</div>
 				</div>
 				<div class="about__content about__content--page">
@@ -63,24 +69,20 @@ Template Name: about
 				<h2 class="section-title__sub">フォト</h2>
 			</div>
 			<div class="about-gallery__images">
+
+				<?php
+        // Smart Custom Fieldsを使用して、about_galleryカスタム投稿タイプの繰り返し画像を取得
+        	$gallery_images = SCF::get('about_gallery'); // 'about_gallery' フィールドのデータを取得
+
+        	if (!empty($gallery_images)): // 画像が存在するかチェック
+          foreach ($gallery_images as $fields): // 繰り返しフィールドの各画像をループ
+          $image_url = wp_get_attachment_image_src($fields['gallery_img'] , 'full'); // 画像URLを取得
+        ?>
 				<div class="about-gallery__img js-modal-open">
-					<img src="./assets/images/common/about-gallery1.jpg" alt="沢山の赤い小さな魚がサンゴ礁の間を泳ぐ様子">
+					<img src="<?php echo esc_url($image_url[0]); ?>" alt="沢山の赤い小さな魚がサンゴ礁の間を泳ぐ様子">
 				</div>
-				<div class="about-gallery__img js-modal-open">
-					<img src="./assets/images/common/about-gallery2.jpg" alt="沖に停泊する2隻の船の画像">
-				</div>
-				<div class="about-gallery__img js-modal-open">
-					<img src="./assets/images/common/about-gallery3.jpg" alt="海中で縞々の魚が2匹泳いでいる画像">
-				</div>
-				<div class="about-gallery__img js-modal-open">
-					<img src="./assets/images/common/about-gallery4.jpg" alt="海中で黄色い魚が泳いでいる画像">
-				</div>
-				<div class="about-gallery__img js-modal-open">
-					<img src="./assets/images/common/about-gallery5.jpg" alt="小さなイワシの群れの画像">
-				</div>
-				<div class="about-gallery__img js-modal-open">
-					<img src="./assets/images/common/about-gallery6.jpg" alt="サンゴ礁の間を泳ぐオレンジ色の魚の画像">
-				</div>
+
+				<?php endforeach; endif; ?>
 			</div>
 		</div>
 		<!-- モーダル -->
@@ -97,7 +99,8 @@ Template Name: about
 			<div class="contact__content">
 				<div class="contact__left">
 					<div class="contact__logo">
-						<img src="./assets/images/common/CodeUps-logo-green.png" alt="CodeUps-logo">
+						<img src="<?php echo get_theme_file_uri(''); ?>/assets/images/common/CodeUps-logo-green.png"
+							alt="CodeUps-logo">
 					</div>
 					<div class="contact__info">
 						<div class="contact__info-text">
@@ -122,7 +125,7 @@ Template Name: about
 					</div>
 					<p class="contact__text">ご予約・お問い合わせはコチラ</p>
 					<div class="contact__link">
-						<a href="contact.html" class="button"><span>contact&nbsp;us</span></a>
+						<a href="<?php echo esc_url( home_url('/')); ?>contact" class="button"><span>contact&nbsp;us</span></a>
 					</div>
 				</div>
 			</div>

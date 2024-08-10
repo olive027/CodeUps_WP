@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: terms
+Template Name: page
 */?>
 <?php get_header(); ?>
 

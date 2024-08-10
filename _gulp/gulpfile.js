@@ -112,96 +112,83 @@ const cssSass = () => {
 
 // 画像圧縮
 const imgImagemin = () => {
-  // 画像ファイルを指定
-  return (
-    src(srcPath.img)
-      // 変更があった画像のみ処理対象に
-      .pipe(changed(destPath.img))
-      // 画像を圧縮
-      .pipe(
-        imagemin(
-          [
-            // JPEG画像の圧縮設定
-            imageminMozjpeg({
-              quality: 80, // 圧縮品質（0〜100）
-            }),
-            // PNG画像の圧縮設定
-            imageminPngquant(),
-            // SVG画像の圧縮設定
-            imageminSvgo({
-              plugins: [
-                {
-                  removeViewbox: false, // viewBox属性を削除しない
-                },
-              ],
-            }),
-          ],
-          {
-            verbose: true, // 圧縮情報を表示
-          }
+  // 変更があった画像のみ処理対象にし、複数の保存先に対応する
+  return src(srcPath.img)
+  .pipe(changed(destPath.img)) // 最初の保存先で変更を検出
+  .pipe(
+  imagemin(
+  [
+  imageminMozjpeg({ quality: 80 }), // JPEG画像の圧縮
+  imageminPngquant(), // PNG画像の圧縮
+  imageminSvgo({ plugins: [{ removeViewbox: false }] }), // SVG画像の圧縮
+  ],
+  { verbose: true }
+  )
+  )
+  .pipe(dest(destPath.img)) // 最初の保存先に保存
+  .pipe(webp()) // webpに変換
+  .pipe(dest(destPath.img)) // webpを最初の保存先に保存
+  .pipe(src(srcPath.img)) // 再度画像ソースを読み込み
+  .pipe(changed(destWpPath.img)) // WordPress用の保存先で変更を検出
+  .pipe(dest(destWpPath.img)) // WordPress用の保存先に保存
+  .pipe(webp()) // webpに変換
+  .pipe(dest(destWpPath.img)); // webpをWordPress用の保存先に保存
+  };
+  
+  
+  
+  // js圧縮
+  const jsBabel = () => {
+    // JavaScriptファイルを指定
+    return (
+      src(srcPath.js)
+        // エラーハンドリングを設定
+        .pipe(
+          plumber({
+            errorHandler: notify.onError("Error: <%= error.message %>"),
+          })
         )
-      )
-      .pipe(dest(destPath.img))
-      .pipe(dest(destWpPath.img))
-      .pipe(webp())//webpに変換
-      // 圧縮済みの画像ファイルを出力先に保存
-      .pipe(dest(destPath.img))
-      .pipe(dest(destWpPath.img))
-  );
-};
-
-// js圧縮
-const jsBabel = () => {
-  // JavaScriptファイルを指定
-  return (
-    src(srcPath.js)
-      // エラーハンドリングを設定
-      .pipe(
-        plumber({
-          errorHandler: notify.onError("Error: <%= error.message %>"),
-        })
-      )
-      // Babelでトランスパイル（ES6からES5へ変換）
-      .pipe(
-        babel({
-          presets: ["@babel/preset-env"],
-        })
-      )
-      // 圧縮済みのファイルを出力先に保存
-      .pipe(dest(destPath.js))
-      .pipe(dest(destWpPath.js))
-  );
-};
-
-const browserSyncOption = {
-  notify: false,
-  // server: "../dist/", // ローカルサーバーのルートディレクトリ
-  //WordPressの場合は↓を有効にする。その場合、↑(server)はコメントアウトする。
-  proxy: "codeups-for-wp.local", // ローカルサーバーのURL（WordPress）
-};
-const browserSyncFunc = () => {
-  browserSync.init(browserSyncOption);
-};
-const browserSyncReload = (done) => {
-  browserSync.reload();
-  done();
-};
-
-// ファイルの削除
-const clean = () => {
-  return del([destPath.all, destWpPath.all], { force: true });
-};
-// ファイルの監視
-const watchFiles = () => {
-  watch(srcPath.css, series(cssSass, browserSyncReload));
-  watch(srcPath.js, series(jsBabel, browserSyncReload));
-  watch(srcPath.img, series(imgImagemin, browserSyncReload));
-  watch(srcPath.html, series(htmlCopy, browserSyncReload));
-  watch(srcPath.php, browserSyncReload);
-};
-
-// ブラウザシンク付きの開発用タスク
-exports.default = series(series(cssSass, jsBabel, imgImagemin, htmlCopy), parallel(watchFiles, browserSyncFunc));
-
-// 本番用タスク
-exports.build = series(clean, cssSass, jsBabel, imgImagemin, htmlCopy);
+        // Babelでトランスパイル（ES6からES5へ変換）
+        .pipe(
+          babel({
+            presets: ["@babel/preset-env"],
+          })
+        )
+        // 圧縮済みのファイルを出力先に保存
+        .pipe(dest(destPath.js))
+        .pipe(dest(destWpPath.js))
+    );
+  };
+  
+  const browserSyncOption = {
+    notify: false,
+    // server: "../dist/", // ローカルサーバーのルートディレクトリ
+    //WordPressの場合は↓を有効にする。その場合、↑(server)はコメントアウトする。
+    proxy: "codeups-for-wp.local", // ローカルサーバーのURL（WordPress）
+  };
+  const browserSyncFunc = () => {
+    browserSync.init(browserSyncOption);
+  };
+  const browserSyncReload = (done) => {
+    browserSync.reload();
+    done();
+  };
+  
+  // ファイルの削除
+  const clean = () => {
+    return del([destPath.all, destWpPath.all], { force: true });
+  };
+  // ファイルの監視
+  const watchFiles = () => {
+    watch(srcPath.css, series(cssSass, browserSyncReload));
+    watch(srcPath.js, series(jsBabel, browserSyncReload));
+    watch(srcPath.img, series(imgImagemin, browserSyncReload));
+    watch(srcPath.html, series(htmlCopy, browserSyncReload));
+    watch(srcPath.php, browserSyncReload);
+  };
+  
+  // ブラウザシンク付きの開発用タスク
+  exports.default = series(series(cssSass, jsBabel, imgImagemin, htmlCopy), parallel(watchFiles, browserSyncFunc));
+  
+  // 本番用タスク
+  exports.build = series(clean, cssSass, jsBabel, imgImagemin, htmlCopy);

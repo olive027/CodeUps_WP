@@ -596,6 +596,14 @@ a {
 	background-size: contain;
 }
 
+.breadcrumbs__item span:first-child {
+	margin-right: 0.25rem;
+}
+
+.breadcrumbs__item span:nth-child(n+2) {
+	margin-left: 0.25rem;
+}
+
 .button-form.button {
 	cursor: pointer;
 }
