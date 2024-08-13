@@ -20,22 +20,18 @@
 	}
 }
 
-.terms-body__item {
+.terms-body__text ul li {
 	margin-top: rem(34);
 	@include mq(md){
 		margin-top: rem(32);
 	}
 }
-.terms-body__text {
+.terms-body__text p {
 	margin-top: rem(38);
 }
 
-.terms-body__text--last {
-	margin-top: rem(32);
-}
-
-.terms-body__text,
-.terms-body__item-text {
+.terms-body__text p,
+.terms-body__text > ul > li > ol > li {
 	font-size: rem(16);
 	font-weight: $normal;
 	line-height: 1.996;
@@ -44,7 +40,7 @@
 	}
 }
 
-.terms-body__item-number {
+.terms-body__text > ul > li > ol {
 	list-style: decimal;
 	list-style-position: inside;
 	padding-left: rem(23);

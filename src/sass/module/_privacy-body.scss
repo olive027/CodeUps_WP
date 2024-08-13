@@ -20,15 +20,11 @@
 	}
 }
 
-.privacy-body__text {
+.privacy-body__text p {
 	margin-top: rem(38);
 }
 
-.privacy-body__text--last {
-	margin-top: rem(34);
-}
-
-.privacy-body__item {
+.privacy-body__text > ul > li {
 	margin-top: rem(33);
 	@include mq(md){
 		margin-top: rem(32);
@@ -36,13 +32,13 @@
 }
 
 .privacy-body__text,
-.privacy-body__item-text {
+.privacy-body__text > ul > li > ol > li {
 	font-size: rem(16);
 	font-weight: $normal;
 	line-height: 1.994;
 }
 
-.privacy-body__item-number {
+.privacy-body__text > ul > li > ol {
 	list-style: decimal;
 	padding-left: rem(24);
 	@include mq(md){

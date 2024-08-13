@@ -2244,26 +2244,22 @@ select {
 	font-weight: 500;
 }
 
-.privacy-body__text {
+.privacy-body__text p {
 	margin-top: 2.375rem;
 }
 
-.privacy-body__text--last {
-	margin-top: 2.125rem;
-}
-
-.privacy-body__item {
+.privacy-body__text > ul > li {
 	margin-top: 2.0625rem;
 }
 
 .privacy-body__text,
-.privacy-body__item-text {
+.privacy-body__text > ul > li > ol > li {
 	font-size: 1rem;
 	font-weight: 400;
 	line-height: 1.994;
 }
 
-.privacy-body__item-number {
+.privacy-body__text > ul > li > ol {
 	list-style: decimal;
 	padding-left: 1.5rem;
 }
@@ -2666,26 +2662,22 @@ html.is-fixed {
 	font-weight: 500;
 }
 
-.terms-body__item {
+.terms-body__text ul li {
 	margin-top: 2.125rem;
 }
 
-.terms-body__text {
+.terms-body__text p {
 	margin-top: 2.375rem;
 }
 
-.terms-body__text--last {
-	margin-top: 2rem;
-}
-
-.terms-body__text,
-.terms-body__item-text {
+.terms-body__text p,
+.terms-body__text > ul > li > ol > li {
 	font-size: 1rem;
 	font-weight: 400;
 	line-height: 1.996;
 }
 
-.terms-body__item-number {
+.terms-body__text > ul > li > ol {
 	list-style: decimal;
 	list-style-position: inside;
 	padding-left: 1.4375rem;
@@ -3863,11 +3855,11 @@ html {
 	font-size: 2rem;
 }
 
-.privacy-body__item {
+.privacy-body__text > ul > li {
 	margin-top: 2rem;
 }
 
-.privacy-body__item-number {
+.privacy-body__text > ul > li > ol {
 	padding-left: 1.4375rem;
 }
 
@@ -3943,12 +3935,12 @@ html {
 	font-size: 2rem;
 }
 
-.terms-body__item {
+.terms-body__text ul li {
 	margin-top: 2rem;
 }
 
-.terms-body__text,
-.terms-body__item-text {
+.terms-body__text p,
+.terms-body__text > ul > li > ol > li {
 	line-height: 1.998;
 }
 
