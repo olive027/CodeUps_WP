@@ -1955,13 +1955,16 @@ select {
 	gap: 5.125rem;
 }
 
-.pagination-wrap__items {
+.pagination-wrap__items,
+.wp-pagenavi {
 	display: flex;
 	gap: 0.75rem;
 	justify-content: center;
 }
 
-.pagination-wrap__item {
+.pagination-wrap__item,
+.wp-pagenavi span,
+.wp-pagenavi .page {
 	align-items: center;
 	border: 1px solid #408F95;
 	color: #408F95;
@@ -1973,23 +1976,30 @@ select {
 	width: 2.375rem;
 }
 
-.pagination-wrap__item.current {
+.pagination-wrap__item.current,
+.wp-pagenavi span.current {
 	background: #408F95;
 	color: #fff;
 }
 
-.pagination-wrap__item:hover {
+.pagination-wrap__item:hover,
+.wp-pagenavi span:hover,
+.wp-pagenavi .page:hover {
 	background: #408F95;
 	color: #fff;
 }
 
-.pagination-wrap__item.current:hover {
+.pagination-wrap__item.current:hover,
+.wp-pagenavi span.current:hover {
 	background: #fff;
 	color: #408F95;
 }
 
 .pagination-wrap__prev,
-.pagination-wrap__next {
+.pagination-wrap__next,
+.wp-pagenavi .previouspostslink,
+.wp-pagenavi .nextpostslink,
+.pager__after-page {
 	align-items: center;
 	border: 1px solid #408F95;
 	cursor: pointer;
@@ -2001,7 +2011,9 @@ select {
 }
 
 .pagination-wrap__prev::before,
-.pagination-wrap__next::before {
+.pagination-wrap__next::before,
+.wp-pagenavi .previouspostslink::before,
+.wp-pagenavi .nextpostslink::before {
 	border-left: 1px solid #408F95;
 	border-top: 1px solid #408F95;
 	content: "";
@@ -2011,23 +2023,30 @@ select {
 	width: 0.625rem;
 }
 
-.pagination-wrap__prev::before {
+.pagination-wrap__prev::before,
+.wp-pagenavi .previouspostslink::before,
+.wp-pagenavi .nextpostslink::before {
 	left: 42%;
 	transform: rotate(-45deg);
 }
 
-.pagination-wrap__next::before {
+.pagination-wrap__next::before,
+.wp-pagenavi .nextpostslink::before {
 	left: 31%;
 	transform: rotate(135deg);
 }
 
 .pagination-wrap__prev:hover,
-.pagination-wrap__next:hover {
+.pagination-wrap__next:hover,
+.wp-pagenavi .previouspostslink:hover,
+.wp-pagenavi .nextpostslink:hover {
 	background: #408F95;
 }
 
 .pagination-wrap__prev:hover::before,
-.pagination-wrap__next:hover::before {
+.pagination-wrap__next:hover::before,
+.wp-pagenavi .previouspostslink:hover::before,
+.wp-pagenavi .nextpostslink:hover::before {
 	border-color: #fff;
 }
 

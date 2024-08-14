@@ -13,13 +13,16 @@
 	}
 }
 
-.pagination-wrap__items {
+.pagination-wrap__items,
+.wp-pagenavi {
 	display: flex;
 	justify-content: center;
 	gap: rem(12);
 }
 
-.pagination-wrap__item {
+.pagination-wrap__item,
+.wp-pagenavi span,
+.wp-pagenavi .page {
 	width: rem(38);
 	height: rem(38);
 	border: 1px solid $green1;
@@ -31,23 +34,30 @@
 	transition: background .4s, color .4s;
 }
 
-.pagination-wrap__item.current {
+.pagination-wrap__item.current,
+.wp-pagenavi span.current {
 	color: #fff;
 	background: $green1;
 }
 
-.pagination-wrap__item:hover {
+.pagination-wrap__item:hover,
+.wp-pagenavi span:hover,
+.wp-pagenavi .page:hover {
 	color: $white;
 	background: $green1;
 }
 
-.pagination-wrap__item.current:hover {
+.pagination-wrap__item.current:hover,
+.wp-pagenavi span.current:hover {
 	color: $green1;
 	background: $white;
 }
 
 .pagination-wrap__prev,
-.pagination-wrap__next {
+.pagination-wrap__next,
+.wp-pagenavi .previouspostslink,
+.wp-pagenavi .nextpostslink,
+.pager__after-page {
 	width: rem(38);
 	height: rem(38);
 	border: 1px solid $green1;
@@ -59,7 +69,9 @@
 }
 
 .pagination-wrap__prev::before,
-.pagination-wrap__next::before {
+.pagination-wrap__next::before,
+.wp-pagenavi .previouspostslink::before ,
+.wp-pagenavi .nextpostslink::before {
 	content: "";
 	width: rem(10);
 	height: rem(10);
@@ -69,22 +81,29 @@
 	transition: border-color .4s;
 }
 
-.pagination-wrap__prev::before {
+.pagination-wrap__prev::before,
+.wp-pagenavi .previouspostslink::before,
+.wp-pagenavi .nextpostslink::before {
 	transform: rotate(-45deg);
 	left: 42%;
 }
 
-.pagination-wrap__next::before {
+.pagination-wrap__next::before,
+.wp-pagenavi .nextpostslink::before {
 	transform: rotate(135deg);
 	left: 31%;
 }
 
 .pagination-wrap__prev:hover,
-.pagination-wrap__next:hover {
+.pagination-wrap__next:hover,
+.wp-pagenavi .previouspostslink:hover,
+.wp-pagenavi .nextpostslink:hover {
 	background: $green1;
 }
 
 .pagination-wrap__prev:hover::before,
-.pagination-wrap__next:hover::before {
+.pagination-wrap__next:hover::before,
+.wp-pagenavi .previouspostslink:hover::before,
+.wp-pagenavi .nextpostslink:hover::before {
 	border-color: $white;
 }

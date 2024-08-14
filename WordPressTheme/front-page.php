@@ -193,55 +193,45 @@
 				<h2 class="section-title__sub section-title__sub--white">ブログ</h2>
 			</div>
 			<ul class="blog__cards blog-cards">
+				<!-- 記事のループ処理開始 -->
+				<?php
+					if( wp_is_mobile() ){
+						$num = 3; //スマホの表示数(全件は-1)
+					} else {
+						$num = 3; //PCの表示数(全件は-1)
+					}
+					$args = [
+						'post_type' => 'post', // 投稿タイプのスラッグ(通常投稿なので'post')
+						'posts_per_page' => $num, // 表示件数
+					];
+					$the_query = new WP_Query( $args );
+					if ( $the_query->have_posts() ) :
+					while ( $the_query->have_posts() ) : $the_query->the_post();
+				?>
 				<li class="blog-cards__item blog-card">
-					<a href="single.html" class="blog-card__link">
+					<a href="<?php the_permalink(); ?>" class="blog-card__link">
 						<div class="blog-card__img">
-							<img src="<?php echo get_theme_file_uri('./assets/images/common/blog-img01.jpg'); ?>" alt="オレンジ色の珊瑚の画像">
+							<?php the_post_thumbnail('post-thumbnail'); ?>
 						</div>
 						<div class="blog-card__body">
 							<div class="blog-card__meta">
-								<time class="blog-card__date" datetime="2023-11-17">2023.11.17</time>
-								<div class="blog-card__title">ライセンス取得</div>
+								<time class="blog-card__date" datetime="<?php the_time('Y-m-d'); ?>">
+									<?php the_time('Y.m.d'); ?>
+								</time>
+								<div class="blog-card__title">
+									<?php the_title(); ?>
+								</div>
 							</div>
 							<div class="blog-card__text">
-								海の底に広がる美しい世界への探検、それがダイビングです。<br>しかし、安全第一を考えるなら、ダイビングを始める前には必ずライセンスを取得することが重要です。<br>この記事では、ダイビングライセンス取得のステップを分かりやすくご紹介します。
+								<?php the_content(); ?>
 							</div>
 						</div>
 					</a>
 				</li>
-				<li class="blog-cards__item blog-card">
-					<a href="single.html" class="blog-card__link">
-						<div class="blog-card__img">
-							<img src="<?php echo get_theme_file_uri('./assets/images/common/blog-img02.jpg'); ?>" alt="ウミガメが海中を泳ぐ画像">
-						</div>
-						<div class="blog-card__body">
-							<div class="blog-card__meta">
-								<time class="blog-card__date" datetime="2023-11-17">2023.12.9</time>
-								<div class="blog-card__title">ウミガメと泳ぐ</div>
-							</div>
-							<div class="blog-card__text">
-								ウミガメと泳ぐ経験は、ダイビング愛好家にとって至福の瞬間です。<br>本記事では、私のウミガメとの素晴らしい出会いについて、心からの感動と驚きを共有したいと思います。
-							</div>
-						</div>
-					</a>
-				</li>
-				<li class="blog-cards__item blog-card">
-					<a href="single.html" class="blog-card__link">
-						<div class="blog-card__img">
-							<img src="<?php echo get_theme_file_uri('./assets/images/common/blog-img03.jpg'); ?>"
-								alt="カクレクマノミがイソギンチャクの間から顔を出している画像">
-						</div>
-						<div class="blog-card__body">
-							<div class="blog-card__meta">
-								<time class="blog-card__date" datetime="2023-11-17">2024.1.24</time>
-								<div class="blog-card__title">カクレクマノミ</div>
-							</div>
-							<div class="blog-card__text">
-								ダイビングの世界には美しい生物が数多く存在しますが、その中でも特に愛らしい存在として知られるのが「カクレクマノミ」です。<br>この記事では、カクレクマノミの特徴や生態、見どころなどを紹介し、彼らが海の小さな宝石である理由を探っていきます。
-							</div>
-						</div>
-					</a>
-				</li>
+				<?php endwhile; else: ?>
+				<p>ただいま準備中です。</p>
+				<?php endif; ?>
+				<?php wp_reset_postdata(); ?>
 			</ul>
 			<div class="blog__link">
 				<a href="<?php echo esc_url( home_url('/')); ?>blog" class="button"><span>view&nbsp;more</span></a>

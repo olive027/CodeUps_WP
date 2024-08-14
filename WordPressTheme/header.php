@@ -1,5 +1,5 @@
 <?php
-if (is_front_page() || is_home()) {
+if (is_front_page()) {
     get_header('top');
 } else {
 ?>
