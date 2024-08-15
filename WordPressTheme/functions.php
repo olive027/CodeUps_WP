@@ -50,19 +50,21 @@ add_action('wp_enqueue_scripts', 'my_theme_enqueue_scripts');
 //=============== 管理画面メニュー並び順変更 =====================================================
 function sort_side_menu( $menu_order ) {
   return array(
-    "index.php", // ダッシュボード
-    "edit.php", // 投稿
-    "edit.php?post_type=page", // 固定ページ
-    "separator1", // 区切り線1
-    "upload.php", // メディア
-    "edit-comments.php", // コメント
-    "separator2", // 区切り線2
-    "themes.php", // 外観
-    "plugins.php", // プラグイン
-    "users.php", // ユーザー
-    "tools.php", // ツール
-    "options-general.php", // 設定
-    "separator-last" // 区切り線（最後）
+      "index.php", // ダッシュボード
+      "edit.php", // 投稿
+      "edit.php?post_type=campaign", // キャンペーン
+      "edit.php?post_type=voice", // お客様の声
+      "edit.php?post_type=page", // 固定ページ
+      "separator1", // 区切り線1
+      "upload.php", // メディア
+      "edit-comments.php", // コメント
+      "separator2", // 区切り線2
+      "themes.php", // 外観
+      "plugins.php", // プラグイン
+      "users.php", // ユーザー
+      "tools.php", // ツール
+      "options-general.php", // 設定
+      "separator-last" // 区切り線（最後）
   );
 }
 add_filter( 'custom_menu_order', '__return_true' );
@@ -93,6 +95,17 @@ function Change_objectlabel() {
 }
 add_action( 'init', 'Change_objectlabel' );
 add_action( 'admin_menu', 'change_menu_label' );
+
+
+//=============== archive.php有効 =====================================================
+function enable_custom_post_type_archives( $args, $post_type ) {
+  if ( 'voice' === $post_type || 'campaign' === $post_type ) {
+      $args['has_archive'] = true;
+  }
+  return $args;
+}
+add_filter( 'register_post_type_args', 'enable_custom_post_type_archives', 10, 2 );
+
 
 
 ?>

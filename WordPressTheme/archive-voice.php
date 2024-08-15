@@ -1,7 +1,3 @@
-<?php
-/*
-Template Name: archive-voice
-*/?>
 <?php get_header(); ?>
 
 <main>
@@ -39,39 +35,97 @@ Template Name: archive-voice
 	<section class="voice-body layout-body">
 		<div class="voice-body__inner inner">
 			<ul class="voice-body__tab tab">
-				<li class="tab__item current">
-					<a href="">all</a>
+				<?php 
+					$taxonomy = 'voice_category';
+					$terms = get_terms(array(
+							'taxonomy' => $taxonomy,
+							'hide_empty' => false,
+					));
+
+					$current_term_slug = get_query_var($taxonomy);
+				?>
+
+				<li class="tab__item <?php echo !$current_term_slug ? 'current' : ''; ?>">
+					<a href="<?php echo get_post_type_archive_link('voice'); ?>">all</a>
 				</li>
-				<li class="tab__item">
-					<a href="">ライセンス講習</a>
+
+				<?php if ($terms && !is_wp_error($terms)) : ?>
+				<?php foreach ($terms as $term) : ?>
+				<li class="tab__item <?php echo $current_term_slug == $term->slug ? 'current' : ''; ?>">
+					<a href="<?php echo get_term_link($term, $taxonomy); ?>">
+						<?php echo esc_html($term->name); ?>
+					</a>
 				</li>
-				<li class="tab__item">
-					<a href="">ファンダイビング</a>
-				</li>
-				<li class="tab__item">
-					<a href="">体験ダイビング</a>
-				</li>
+				<?php endforeach; ?>
+				<?php endif; ?>
 			</ul>
+
 			<div class="voice-body__cards voice-cards fish-icon">
+
+				<?php
+					if( wp_is_mobile() ){
+						$num = 4; // スマホの表示数(全件は-1)
+					} else {
+						$num = 6; // PCの表示数(全件は-1)
+					}
+					$paged = get_query_var('paged') ? get_query_var('paged') : 1;
+					$args = [
+						'post_type' => 'voice', // カスタム投稿の投稿タイプスラッグ
+						'paged' => $paged, // ページネーションがある場合に必要
+						'posts_per_page' => $num, // 表示件数
+						// カテゴリー(ターム)を指定する場合に書く↓
+						'tax_query' => array (
+							array (
+								'taxonomy' => 'voice_category', // タクソノミーのスラッグ
+								'field' => 'slug',
+								'terms' => $current_term_slug ? $current_term_slug : get_terms(['taxonomy' => 'voice_category', 'fields' => 'slugs']),
+							)),
+						// カテゴリー(ターム)を指定する場合に書く↑
+					];
+					$wp_query = new WP_Query($args);
+					if (have_posts()): while (have_posts()): the_post();
+				?>
 				<div class="voice-body__card voice-card">
 					<div class="voice-card__head">
 						<div class="voice-card__info">
 							<div class="voice-card__meta">
-								<div class="voice-card__age">20代(女性)</div>
-								<div class="voice-card__category">ライセンス講習</div>
+								<div class="voice-card__age">
+									<?php the_field('voice_age'); ?>
+								</div>
+								<div class="voice-card__category">
+									<?php
+										$terms = get_the_terms(get_the_ID(), 'voice_category');
+										if ($terms && !is_wp_error($terms)):
+												$term_names = array_map(function($term) {
+														return esc_html($term->name);
+												}, $terms);
+												echo join(', ', $term_names);
+										endif;
+    							?>
+								</div>
 							</div>
 							<div class="voice-card__title">
-								ここにタイトルが入ります。ここにタイトル
+								<?php the_title(); ?>
 							</div>
 						</div>
 						<div class="voice-card__img colorbox js-colorbox">
-							<img src="./assets/images/common/voice-img01.jpg" alt="麦わら帽子をかぶった女性の正面写真">
+							<?php $voice_img = get_field('voice_img');
+								if ($voice_img) : ?>
+							<img src="<?php echo esc_url($voice_img); ?>" alt="<?php the_field('voice_title'); ?>">
+							<?php else : ?>
+							<img src=" <?php echo get_template_directory_uri(); ?>/assets/images/common/no-image.png" alt="no-image">
+							<?php endif; ?>
 						</div>
 					</div>
 					<div class="voice-card__text">
-						私は今までずっと、海が持つ神秘性に惹かれてきました。<br>その魅力を求め、ついにダイビングの世界に足を踏み入れた日が忘れられません。<br>初めて水中に潜った瞬間、私の心は一瞬で海の無限の広がりに包まれました。静かな海底に沈むと、まるで別世界に迷い込んだかのような錯覚に陥りました。<br>ここにテキストが入ります。ここにテキストが入ります。
+						<?php the_content(); ?>
 					</div>
 				</div>
+				<?php endwhile; ?>
+				<?php else : ?>
+				<p>ただいま準備中です。</p>
+				<?php endif; ?>
+				<?php wp_reset_postdata(); ?>
 			</div>
 
 			<div class="voice-body__pagination pagination-wrap">
