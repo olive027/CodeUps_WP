@@ -3256,7 +3256,8 @@ html {
 	font-size: 2rem;
 }
 
-.campaign-card__detail-text {
+.campaign-card__detail-text,
+.campaign-card__detail-text p {
 	flex-grow: 1;
 	font-weight: 400;
 	line-height: 1.5;

@@ -36,14 +36,14 @@
 		<div class="voice-body__inner inner">
 			<ul class="voice-body__tab tab">
 				<?php 
-					$taxonomy = 'voice_category';
-					$terms = get_terms(array(
-							'taxonomy' => $taxonomy,
-							'hide_empty' => false,
-					));
+				$taxonomy = 'voice_category';
+				$terms = get_terms(array(
+					'taxonomy' => $taxonomy,
+					'hide_empty' => false,
+				));
 
-					$current_term_slug = get_query_var($taxonomy);
-				?>
+				$current_term_slug = get_query_var('term'); // 現在のタームスラッグを取得
+			?>
 
 				<li class="tab__item <?php echo !$current_term_slug ? 'current' : ''; ?>">
 					<a href="<?php echo get_post_type_archive_link('voice'); ?>">all</a>
@@ -63,28 +63,26 @@
 			<div class="voice-body__cards voice-cards fish-icon">
 
 				<?php
-					// if( wp_is_mobile() ){
-					// 	$num = 4; // スマホの表示数(全件は-1)
-					// } else {
-					// 	$num = 6; // PCの表示数(全件は-1)
-					// }
-					$paged = get_query_var('paged') ? get_query_var('paged') : 1;
-					$args = [
-						'post_type' => 'voice', // カスタム投稿の投稿タイプスラッグ
-						'paged' => $paged, // ページネーションがある場合に必要
-						'posts_per_page' => 6, // 表示件数
-						// カテゴリー(ターム)を指定する場合に書く↓
-						'tax_query' => array (
-							array (
-								'taxonomy' => 'voice_category', // タクソノミーのスラッグ
-								'field' => 'slug',
-								'terms' => $current_term_slug ? $current_term_slug : get_terms(['taxonomy' => 'voice_category', 'fields' => 'slugs']),
-							)),
-						// カテゴリー(ターム)を指定する場合に書く↑
-					];
-					$wp_query = new WP_Query($args);
-					if (have_posts()): while (have_posts()): the_post();
-				?>
+				// if( wp_is_mobile() ){
+				// 	$num = 4; // スマホの表示数(全件は-1)
+				// } else {
+				// 	$num = 6; // PCの表示数(全件は-1)
+				// }
+				$paged = get_query_var('paged') ? get_query_var('paged') : 1;
+				$args = [
+					'post_type' => 'voice', // カスタム投稿の投稿タイプスラッグ
+					'paged' => $paged, // ページネーションがある場合に必要
+					'posts_per_page' => 6, // 表示件数
+					'tax_query' => array (
+						array (
+							'taxonomy' => $taxonomy, // タクソノミーのスラッグ
+							'field' => 'slug',
+							'terms' => $current_term_slug, // 現在のタームスラッグを使用
+						)),
+				];
+				$wp_query = new WP_Query($args);
+				if ($wp_query->have_posts()): while ($wp_query->have_posts()): $wp_query->the_post();
+			?>
 				<div class="voice-body__card voice-card">
 					<div class="voice-card__head">
 						<div class="voice-card__info">
@@ -94,14 +92,14 @@
 								</div>
 								<div class="voice-card__category">
 									<?php
-										$terms = get_the_terms(get_the_ID(), 'voice_category');
-										if ($terms && !is_wp_error($terms)):
-												$term_names = array_map(function($term) {
-														return esc_html($term->name);
-												}, $terms);
-												echo join(', ', $term_names);
-										endif;
-    							?>
+									$terms = get_the_terms(get_the_ID(), 'voice_category');
+									if ($terms && !is_wp_error($terms)):
+										$term_names = array_map(function($term) {
+											return esc_html($term->name);
+										}, $terms);
+										echo join(', ', $term_names);
+									endif;
+								?>
 								</div>
 							</div>
 							<div class="voice-card__title">
@@ -110,7 +108,7 @@
 						</div>
 						<div class="voice-card__img colorbox js-colorbox">
 							<?php $voice_img = get_field('voice_img');
-								if ($voice_img) : ?>
+							if ($voice_img) : ?>
 							<img src="<?php echo esc_url($voice_img); ?>" alt="<?php the_field('voice_title'); ?>">
 							<?php else : ?>
 							<img src=" <?php echo get_template_directory_uri(); ?>/assets/images/common/no-image.png" alt="no-image">
@@ -135,6 +133,7 @@
 			</div>
 		</div>
 	</section>
+
 
 	<section class="contact layout-body-contact">
 		<div class="contact__inner inner">

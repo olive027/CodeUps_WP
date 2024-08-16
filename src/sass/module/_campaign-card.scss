@@ -211,7 +211,8 @@
 	}
 }
 
-.campaign-card__detail-text {
+.campaign-card__detail-text,
+.campaign-card__detail-text p {
 	@include mq(md){
 		margin-top: rem(24);
 		line-height: calc(24 / 16);

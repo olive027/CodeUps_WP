@@ -1,23 +1,23 @@
 <?php get_header(); ?>
 
 <main>
-	<div class="voice-mv common-mv">
+	<div class="campaign-mv common-mv">
 		<div class="common-mv__inner">
 			<div class="common-mv__image">
 				<picture>
-					<source srcset="<?php echo get_theme_file_uri(''); ?>/assets/images/common/voice-mv-sp.jpg"
+					<source srcset="<?php echo get_theme_file_uri(''); ?>/assets/images/common/campaign-mv-sp.jpg"
 						media="(max-width:767px)">
-					<img src="<?php echo get_theme_file_uri(''); ?>/assets/images/common/voice-mv.jpg" alt="海中を泳ぐ黄色い魚の画像">
+					<img src="<?php echo get_theme_file_uri(''); ?>/assets/images/common/campaign-mv.jpg" alt="海中を泳ぐ黄色い魚の画像">
 				</picture>
 			</div>
 			<div class="common-mv__title-wrap">
-				<h1 class="common-mv__title">voice</h1>
+				<h1 class="common-mv__title">campaign</h1>
 			</div>
 		</div>
 	</div>
 
 	<!-- パンくず -->
-	<div class="voice-breadcrumbs breadcrumbs layout-breadcrumbs">
+	<div class="campaign-breadcrumbs breadcrumbs layout-breadcrumbs">
 		<div class="breadcrumbs__inner inner">
 			<ul class="breadcrumbs__items">
 				<li class="breadcrumbs__item">
@@ -31,22 +31,22 @@
 		</div>
 	</div>
 
-	<!-- voice -->
-	<section class="voice-body layout-body">
-		<div class="voice-body__inner inner">
-			<ul class="voice-body__tab tab">
+	<!-- Campaign -->
+	<section class="campaign-body layout-body">
+		<div class="campaign-body__inner inner">
+			<ul class="campaign-body__tab tab">
 				<?php 
-					$taxonomy = 'voice_category';
-					$terms = get_terms(array(
-							'taxonomy' => $taxonomy,
-							'hide_empty' => false,
-					));
+				$taxonomy = 'campaign_category';
+				$terms = get_terms(array(
+					'taxonomy' => $taxonomy,
+					'hide_empty' => false,
+				));
 
-					$current_term_slug = get_query_var($taxonomy);
-				?>
+				$current_term_slug = get_query_var('term'); // 現在のタームスラッグを取得
+			?>
 
 				<li class="tab__item <?php echo !$current_term_slug ? 'current' : ''; ?>">
-					<a href="<?php echo get_post_type_archive_link('voice'); ?>">all</a>
+					<a href="<?php echo get_post_type_archive_link('campaign'); ?>">all</a>
 				</li>
 
 				<?php if ($terms && !is_wp_error($terms)) : ?>
@@ -59,9 +59,7 @@
 				<?php endforeach; ?>
 				<?php endif; ?>
 			</ul>
-
-			<div class="voice-body__cards voice-cards fish-icon">
-
+			<div class="campaign-body__cards fish-icon">
 				<?php
 					// if( wp_is_mobile() ){
 					// 	$num = 4; // スマホの表示数(全件は-1)
@@ -70,55 +68,60 @@
 					// }
 					$paged = get_query_var('paged') ? get_query_var('paged') : 1;
 					$args = [
-						'post_type' => 'voice', // カスタム投稿の投稿タイプスラッグ
+						'post_type' => 'campaign', // カスタム投稿の投稿タイプスラッグ
 						'paged' => $paged, // ページネーションがある場合に必要
 						'posts_per_page' => 6, // 表示件数
 						// カテゴリー(ターム)を指定する場合に書く↓
 						'tax_query' => array (
 							array (
-								'taxonomy' => 'voice_category', // タクソノミーのスラッグ
+								'taxonomy' => $taxonomy, // タクソノミーのスラッグ
 								'field' => 'slug',
-								'terms' => $current_term_slug ? $current_term_slug : get_terms(['taxonomy' => 'voice_category', 'fields' => 'slugs']),
+								'terms' => $current_term_slug,
 							)),
 						// カテゴリー(ターム)を指定する場合に書く↑
 					];
 					$wp_query = new WP_Query($args);
-					if (have_posts()): while (have_posts()): the_post();
+					if ($wp_query->have_posts()): while ($wp_query->have_posts()): $wp_query->the_post();
 				?>
-				<div class="voice-body__card voice-card">
-					<div class="voice-card__head">
-						<div class="voice-card__info">
-							<div class="voice-card__meta">
-								<div class="voice-card__age">
-									<?php the_field('voice_age'); ?>
-								</div>
-								<div class="voice-card__category">
-									<?php
-										$terms = get_the_terms(get_the_ID(), 'voice_category');
-										if ($terms && !is_wp_error($terms)):
-												$term_names = array_map(function($term) {
-														return esc_html($term->name);
-												}, $terms);
-												echo join(', ', $term_names);
-										endif;
-    							?>
-								</div>
-							</div>
-							<div class="voice-card__title">
-								<?php the_title(); ?>
-							</div>
-						</div>
-						<div class="voice-card__img colorbox js-colorbox">
-							<?php $voice_img = get_field('voice_img');
-								if ($voice_img) : ?>
-							<img src="<?php echo esc_url($voice_img); ?>" alt="<?php the_field('voice_title'); ?>">
-							<?php else : ?>
-							<img src=" <?php echo get_template_directory_uri(); ?>/assets/images/common/no-image.png" alt="no-image">
-							<?php endif; ?>
-						</div>
+				<div class="campaign-body__card campaign-card campaign-card--page">
+					<div class="campaign-card__img">
+						<?php $campaign_img = get_field('campaign_img');
+								if ($campaign_img) : ?>
+						<img src="<?php echo esc_url($campaign_img); ?>" alt="<?php the_field('campaign_title'); ?>">
+						<?php else : ?>
+						<img src=" <?php echo get_template_directory_uri(); ?>/assets/images/common/no-image.png" alt="no-image">
+						<?php endif; ?>
 					</div>
-					<div class="voice-card__text">
-						<?php the_content(); ?>
+					<div class="campaign-card__body">
+						<div class="campaign-card__meta">
+							<div class="campaign-card__category">
+								<?php
+									$terms = get_the_terms(get_the_ID(), 'campaign_category');
+									if ($terms && !is_wp_error($terms)):
+											$term_names = array_map(function($term) {
+													return esc_html($term->name);
+											}, $terms);
+											echo join(', ', $term_names);
+									endif;
+    						?>
+							</div>
+						</div>
+						<h3 class="campaign-card__title"><?php the_title(); ?></h3>
+						<div class="campaign-card__wrap">
+							<p class="campaign-card__text">全部コミコミ(お一人様)</p>
+							<div class="campaign-card__price">
+								<div class="campaign-card__price-before"><?php the_field('campaign_price-before'); ?></div>
+								<div class="campaign-card__price-after"><?php the_field('campaign_price-after'); ?></div>
+							</div>
+						</div>
+						<div class="campaign-card__detail-text u-desktop">
+							<?php the_content(); ?>
+						</div>
+						<p class="campaign-card__period u-desktop">2023/6/1-9/30</p>
+						<p class="campaign-card__contact-text u-desktop">ご予約・お問い合わせはコチラ</p>
+						<div class="campaign-card__btn u-desktop">
+							<a href="<?php echo esc_url( home_url('/')); ?>contact" class="button"><span>contact&nbsp;us</span></a>
+						</div>
 					</div>
 				</div>
 				<?php endwhile; ?>
@@ -128,7 +131,7 @@
 				<?php wp_reset_postdata(); ?>
 			</div>
 
-			<div class="voice-body__pagination pagination-wrap">
+			<div class="campaign-body__pagination pagination-wrap">
 				<ul class="pagination-wrap__items">
 					<?php wp_pagenavi(); ?>
 				</ul>
@@ -165,7 +168,7 @@
 							<span class="section-title__sub section-title__sub--contact">お問合せ</span>
 						</h2>
 					</div>
-					<p class="contact__text">ご予約・お問い合わせはコチラ</p>
+					<p class="contact__text contact__text--page">ご予約・お問い合わせはコチラ</p>
 					<div class="contact__link">
 						<a href="<?php echo esc_url( home_url('/')); ?>contact" class="button"><span>contact&nbsp;us</span></a>
 					</div>
