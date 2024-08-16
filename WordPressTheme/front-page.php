@@ -245,46 +245,59 @@
 				<h2 class="section-title__sub">お客様の声</h2>
 			</div>
 			<div class="voice__cards voice-cards">
+
+				<?php
+					$news_query = new WP_Query(
+						array(
+							'post_type'      => 'voice',
+							'posts_per_page' => 2,
+						)
+					);
+				?>
+				<?php if ( $news_query->have_posts() ) : ?>
+				<?php while ( $news_query->have_posts() ) : ?>
+				<?php $news_query->the_post(); ?>
+
 				<div class="voice-cards__item voice-card">
 					<div class="voice-card__head">
 						<div class="voice-card__info">
 							<div class="voice-card__meta">
-								<div class="voice-card__age">20代(女性)</div>
-								<div class="voice-card__category">ライセンス講習</div>
+								<div class="voice-card__age">
+									<?php the_field('voice_age'); ?>
+								</div>
+								<div class="voice-card__category">
+									<?php
+										$terms = get_the_terms(get_the_ID(), 'voice_category');
+										if ($terms && !is_wp_error($terms)):
+												$term_names = array_map(function($term) {
+														return esc_html($term->name);
+												}, $terms);
+												echo join(', ', $term_names);
+										endif;
+    							?>
+								</div>
 							</div>
 							<div class="voice-card__title">
-								海中での神秘的な体験
+								<?php the_title(); ?>
 							</div>
 						</div>
 						<div class="voice-card__img colorbox js-colorbox">
-							<img src="<?php echo get_theme_file_uri('./assets/images/common/voice-img01.jpg'); ?>"
-								alt="麦わら帽子をかぶった女性の正面写真">
+							<?php $voice_img = get_field('voice_img');
+								if ($voice_img) : ?>
+							<img src="<?php echo esc_url($voice_img); ?>" alt="<?php the_field('voice_title'); ?>">
+							<?php else : ?>
+							<img src=" <?php echo get_template_directory_uri(); ?>/assets/images/common/no-image.png" alt="no-image">
+							<?php endif; ?>
 						</div>
 					</div>
 					<div class="voice-card__text">
-						私は今までずっと、海が持つ神秘性に惹かれてきました。<br>その魅力を求め、ついにダイビングの世界に足を踏み入れた日が忘れられません。<br>初めて水中に潜った瞬間、私の心は一瞬で海の無限の広がりに包まれました。<br>静かな海底に沈むと、まるで別世界に迷い込んだかのような錯覚に陥りました。
+						<?php the_content(); ?>
 					</div>
 				</div>
-				<div class="voice-cards__item voice-card">
-					<div class="voice-card__head">
-						<div class="voice-card__info">
-							<div class="voice-card__meta">
-								<div class="voice-card__age">20代(男性)</div>
-								<div class="voice-card__category">ファンダイビング</div>
-							</div>
-							<div class="voice-card__title">
-								自然の壮大さと美しさを感じて
-							</div>
-						</div>
-						<div class="voice-card__img colorbox js-colorbox">
-							<img src="<?php echo get_theme_file_uri('./assets/images/common/voice-img02.jpg'); ?>"
-								alt="ガッツポーズの女性の正面写真">
-						</div>
-					</div>
-					<div class="voice-card__text">
-						ダイビングは自然の壮大さとその美しさを直接体験する機会でした。<br>水面を突き破り、海の底に潜ると、まるで時間が止まったかのような静寂が広がっていました。<br>まず目に飛び込んできたのは、その美しい海の色彩でした。
-					</div>
-				</div>
+				<?php endwhile; else: ?>
+				<p>ただいま準備中です。</p>
+				<?php endif; ?>
+				<?php wp_reset_postdata(); ?>
 			</div>
 			<div class="voice__link">
 				<a href="<?php echo esc_url( home_url('/')); ?>voice" class="button"><span>view&nbsp;more</span></a>

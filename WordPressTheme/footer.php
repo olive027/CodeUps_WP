@@ -35,7 +35,7 @@
 				</ul>
 				<ul class="footer-nav__left-items">
 					<li class="footer-nav__left-item">
-						<a href="<?php echo esc_url( home_url( '/' ) ); ?>about">私たちについて</a>
+						<a href="<?php echo esc_url( home_url('/')); ?>about">私たちについて</a>
 					</li>
 				</ul>
 				<ul class="footer-nav__left-items">
