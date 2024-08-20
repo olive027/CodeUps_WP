@@ -43,83 +43,54 @@
 			</div>
 			<div class="campaign__slider swiper js-campaign-swiper">
 				<div class="campaign__cards swiper-wrapper">
+					<?php
+					$news_query = new WP_Query(
+						array(
+							'post_type'      => 'campaign',
+							'posts_per_page' => 15,
+						)
+					);
+					?>
+					<?php if ( $news_query->have_posts() ) : ?>
+					<?php while ( $news_query->have_posts() ) : ?>
+					<?php $news_query->the_post(); ?>
 					<div class="campaign__card campaign-card swiper-slide">
 						<div class="campaign-card__img">
-							<img src="<?php echo get_theme_file_uri('./assets/images/common/campaign-img01.jpg'); ?>"
-								alt="たくさんの魚が海中を泳いでいる画像">
+							<?php $campaign_img = get_field('campaign_img');
+								if ($campaign_img) : ?>
+							<img src="<?php echo esc_url($campaign_img); ?>" alt="<?php the_field('campaign_title'); ?>">
+							<?php else : ?>
+							<img src=" <?php echo get_template_directory_uri(); ?>/assets/images/common/no-image.png" alt="no-image">
+							<?php endif; ?>
 						</div>
 						<div class="campaign-card__body">
 							<div class="campaign-card__meta">
-								<div class="campaign-card__category">ライセンス講習
+								<div class="campaign-card__category">
+									<?php
+									$terms = get_the_terms(get_the_ID(), 'campaign_category');
+									if ($terms && !is_wp_error($terms)):
+											$term_names = array_map(function($term) {
+													return esc_html($term->name);
+											}, $terms);
+											echo join(', ', $term_names);
+									endif;
+    							?>
 								</div>
 							</div>
-							<h3 class="campaign-card__title">ライセンス取得</h3>
+							<h3 class="campaign-card__title"><?php the_title(); ?></h3>
 							<div class="campaign-card__wrap">
 								<p class="campaign-card__text">全部コミコミ(お一人様)</p>
 								<div class="campaign-card__price">
-									<div class="campaign-card__price-before">¥56,000</div>
-									<div class="campaign-card__price-after">¥46,000</div>
+									<div class="campaign-card__price-before"><?php the_field('campaign_price-before'); ?></div>
+									<div class="campaign-card__price-after"><?php the_field('campaign_price-after'); ?></div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="campaign__card campaign-card swiper-slide">
-						<div class="campaign-card__img">
-							<img src="<?php echo get_theme_file_uri('./assets/images/common/campaign-img02.jpg'); ?>" alt="船の乗り場の画像">
-						</div>
-						<div class="campaign-card__body">
-							<div class="campaign-card__meta">
-								<div class="campaign-card__category">体験ダイビング</div>
-							</div>
-							<h3 class="campaign-card__title">貸切体験ダイビング</h3>
-							<div class="campaign-card__wrap">
-								<p class="campaign-card__text">全部コミコミ(お一人様)</p>
-								<div class="campaign-card__price">
-									<div class="campaign-card__price-before">¥24,000</div>
-									<div class="campaign-card__price-after">¥18,000</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="campaign__card campaign-card swiper-slide">
-						<div class="campaign-card__img">
-							<img src="<?php echo get_theme_file_uri('./assets/images/common/campaign-img03.jpg'); ?>"
-								alt="たくさんのクラゲが海中を泳いでいる画像">
-						</div>
-						<div class="campaign-card__body">
-							<div class="campaign-card__meta">
-								<div class="campaign-card__category">体験ダイビング
-								</div>
-							</div>
-							<h3 class="campaign-card__title">ナイトダイビング</h3>
-							<div class="campaign-card__wrap">
-								<p class="campaign-card__text">全部コミコミ(お一人様)</p>
-								<div class="campaign-card__price">
-									<div class="campaign-card__price-before">¥10,000</div>
-									<div class="campaign-card__price-after">¥8,000</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="campaign__card campaign-card swiper-slide">
-						<div class="campaign-card__img">
-							<img src="<?php echo get_theme_file_uri('./assets/images/common/campaign-img04.jpg'); ?>"
-								alt="何人かのダイバーが海面から顔を出している画像">
-						</div>
-						<div class="campaign-card__body">
-							<div class="campaign-card__meta">
-								<div class="campaign-card__category">ファンダイビング</div>
-							</div>
-							<h3 class="campaign-card__title">貸切ファンダイビング</h3>
-							<div class="campaign-card__wrap">
-								<p class="campaign-card__text">全部コミコミ(お一人様)</p>
-								<div class="campaign-card__price">
-									<div class="campaign-card__price-before">¥20,000</div>
-									<div class="campaign-card__price-after">¥16,000</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					<?php endwhile; else: ?>
+					<p>ただいま準備中です。</p>
+					<?php endif; ?>
+					<?php wp_reset_postdata(); ?>
 				</div>
 			</div>
 			<div class="campaign__button-prev js-campaign-btn-prev u-desktop"></div>
@@ -324,47 +295,102 @@
 						<li class="price__list">
 							<h3 class="price__list-title">ライセンス講習</h3>
 							<dl class="price__list-item">
-								<dt>オープンウォーターダイバーコース</dt>
-								<dd>¥50,000</dd>
-								<dt>アドバンスドオープンウォーターコース</dt>
-								<dd>¥60,000</dd>
-								<dt>レスキュー＋EFRコース</dt>
-								<dd>¥70,000</dd>
+								<?php
+						// スラッグからページIDを取得
+						$page_price_id = get_page_by_path('price')->ID;
+
+						// price_license_labelとprice_license_costの繰り返しフィールドを取得
+						$price_license_labels = SCF::get('price_license_label', $page_price_id);
+						$price_license_costs = SCF::get('price_license_cost', $page_price_id);
+
+						// ラベルとコストの数が一致するかを確認
+						if (!empty($price_license_labels) && !empty($price_license_costs) && count($price_license_labels) === count($price_license_costs)) {
+								// 各フィールドをループで処理
+								for ($i = 0; $i < count($price_license_labels); $i++) {
+										$label = $price_license_labels[$i];
+										$cost = $price_license_costs[$i];
+										?>
+								<dt><?php echo nl2br(esc_html($label)); ?></dt>
+								<dd><?php echo esc_html($cost); ?></dd>
+								<?php
+								}
+						} else {
+								// フィールドがない場合または数が一致しない場合の処理（任意）
+								echo '<p>ただいま準備中です。</p>';
+						}
+					?>
 							</dl>
 						</li>
 						<li class="price__list">
 							<h3 class="price__list-title">体験ダイビング</h3>
 							<dl class="price__list-item">
-								<dt>ビーチ体験ダイビング(半日)</dt>
-								<dd>¥7,000</dd>
-								<dt>ビーチ体験ダイビング(1日)</dt>
-								<dd>¥14,000</dd>
-								<dt>ボート体験ダイビング(半日)</dt>
-								<dd>¥10,000</dd>
-								<dt>ボート体験ダイビング(1日)</dt>
-								<dd>¥18,000</dd>
+								<?php
+							$page_price_id = get_page_by_path('price')->ID;
+
+							$price_experience_labels = SCF::get('price_experience_label', $page_price_id);
+							$price_experience_costs = SCF::get('price_experience_cost', $page_price_id);
+
+							if (!empty($price_experience_labels) && !empty($price_experience_costs) && count($price_experience_labels) === count($price_experience_costs)) {
+									for ($i = 0; $i < count($price_experience_labels); $i++) {
+											$label = $price_experience_labels[$i];
+											$cost = $price_experience_costs[$i];
+											?>
+								<dt><?php echo nl2br(esc_html($label)); ?></dt>
+								<dd><?php echo esc_html($cost); ?></dd>
+								<?php
+									}
+							} else {
+									echo '<p>ただいま準備中です。</p>';
+							}
+						?>
 							</dl>
 						</li>
 						<li class="price__list">
 							<h3 class="price__list-title">ファンダイビング</h3>
 							<dl class="price__list-item">
-								<dt>ビーチダイビング(2ダイブ)</dt>
-								<dd>¥14,000</dd>
-								<dt>ボートダイビング(2ダイブ)</dt>
-								<dd>¥18,000</dd>
-								<dt>スペシャルダイビング(2ダイブ)</dt>
-								<dd>¥24,000</dd>
-								<dt>ナイトダイビング(1ダイブ)</dt>
-								<dd>¥10,000</dd>
+								<?php
+							$page_price_id = get_page_by_path('price')->ID;
+
+							$price_fan_labels = SCF::get('price_fan_label', $page_price_id);
+							$price_fan_costs = SCF::get('price_fan_cost', $page_price_id);
+
+							if (!empty($price_fan_labels) && !empty($price_fan_costs) && count($price_fan_labels) === count($price_fan_costs)) {
+									for ($i = 0; $i < count($price_fan_labels); $i++) {
+											$label = $price_fan_labels[$i];
+											$cost = $price_fan_costs[$i];
+											?>
+								<dt><?php echo nl2br(esc_html($label)); ?></dt>
+								<dd><?php echo esc_html($cost); ?></dd>
+								<?php
+									}
+							} else {
+									echo '<p>ただいま準備中です。</p>';
+							}
+						?>
 							</dl>
 						</li>
 						<li class="price__list">
 							<h3 class="price__list-title">スペシャルダイビング</h3>
 							<dl class="price__list-item">
-								<dt>貸切ダイビング(2ダイブ)</dt>
-								<dd>¥24,000</dd>
-								<dt>1日ダイビング(3ダイブ)</dt>
-								<dd>¥32,000</dd>
+								<?php
+							$page_price_id = get_page_by_path('price')->ID;
+
+							$price_special_labels = SCF::get('price_special_label', $page_price_id);
+							$price_special_costs = SCF::get('price_special_cost', $page_price_id);
+
+							if (!empty($price_special_labels) && !empty($price_special_costs) && count($price_special_labels) === count($price_special_costs)) {
+									for ($i = 0; $i < count($price_special_labels); $i++) {
+											$label = $price_special_labels[$i];
+											$cost = $price_special_costs[$i];
+											?>
+								<dt><?php echo nl2br(esc_html($label)); ?></dt>
+								<dd><?php echo esc_html($cost); ?></dd>
+								<?php
+									}
+							} else {
+									echo '<p>ただいま準備中です。</p>';
+							}
+						?>
 							</dl>
 						</li>
 					</ul>

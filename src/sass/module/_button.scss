@@ -93,11 +93,13 @@
 .button:hover {
 	background-color: $white;
 	color: $green1;
+	opacity: 1;
 }
 
 .button.button--green:hover {
 	background-color: $green1;
 	color: $white;
+	opacity: 1;
 }
 
 .button:hover::after {
