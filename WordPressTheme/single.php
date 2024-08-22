@@ -11,13 +11,12 @@
 				</picture>
 			</div>
 			<div class="common-mv__title-wrap">
-				<h1 class="common-mv__title">blog</h1>
+				<div class="common-mv__title">blog</div>
 			</div>
 		</div>
 	</div>
 
-	<!-- パンくず -->
-	<div class="blog-breadcrumbs breadcrumbs layout-breadcrumbs">
+	<div class="blog-single-breadcrumbs breadcrumbs layout-breadcrumbs">
 		<div class="breadcrumbs__inner inner">
 			<ul class="breadcrumbs__items">
 				<li class="breadcrumbs__item">
@@ -34,46 +33,60 @@
 	<section class="blog-body layout-body">
 		<div class="blog-body__inner inner">
 			<div class="blog-body__content fish-icon">
-				<div class="blog-body__cards-wrap">
-					<ul class="blog-body__cards blog-cards blog-cards--page">
-						<?php
+				<div class="blog-body__main">
+					<?php
 							if ( have_posts() ) : while ( have_posts() ) : the_post();
-						?>
-						<li class="blog-cards__item blog-card">
-							<a href="<?php the_permalink(); ?>" class="blog-card__link">
-								<div class="blog-card__img">
-									<?php the_post_thumbnail('post-thumbnail'); ?>
-								</div>
-								<div class="blog-card__body">
-									<div class="blog-card__meta">
-										<time class="blog-card__date" datetime="<?php the_time('Y-m-d'); ?>">
-											<?php the_time('Y.m.d'); ?>
-										</time>
-										<div class="blog-card__title">
-											<?php the_title(); ?>
-										</div>
-									</div>
-									<div class="blog-card__text">
-										<?php the_excerpt(); ?>
-									</div>
-								</div>
-							</a>
-						</li>
-						<?php endwhile; else: ?>
-						<p>ただいま準備中です。</p>
-						<?php endif; ?>
-						<?php wp_reset_postdata(); ?>
-					</ul>
-					<!-- ページネーション -->
-					<div class="blog-body__pagination pagination-wrap">
-						<ul class="pagination-wrap__items">
-							<?php wp_pagenavi(); ?>
+					?>
+					<div class="blog-body__head">
+						<time class="blog-body__date" datetime="<?php the_time('Y-m-d'); ?>">
+							<?php the_time('Y.m.d'); ?>
+						</time>
+						<h1 class="blog-body__title"><?php the_title(); ?></h1>
+					</div>
+					<div class="blog-body__image">
+						<?php the_post_thumbnail('post-thumbnail'); ?>
+					</div>
+					<div class="blog-body__singleContent">
+						<p>
+							<?php the_content(); ?>
+						</p>
+						<figure>
+							<?php $blog_img_2 = get_field('blog_img_2');
+								if ($blog_img_2) : ?>
+							<img src="<?php echo esc_url($blog_img_2); ?>" alt="<?php the_title(); ?>">
+							<?php else : ?>
+							<img src=" <?php echo get_template_directory_uri(); ?>/assets/images/common/no-image.png" alt="no-image">
+							<?php endif; ?>
+						</figure>
+						<p>
+							<?php the_field('blog_text_2'); ?>
+						</p>
+						<ul>
+							<li><?php the_field('blog_feature_1'); ?></li>
+							<li><?php the_field('blog_feature_2'); ?></li>
+							<li><?php the_field('blog_feature_3'); ?></li>
 						</ul>
+						<p>
+							<?php the_field('blog_text_3'); ?>
+						</p>
+					</div>
+					<?php endwhile; else: ?>
+					<p>ただいま準備中です。</p>
+					<?php endif; ?>
+					<?php wp_reset_postdata(); ?>
+
+					<!-- ページネーション -->
+					<div class="blog-body__pagination blog-body__pagination--single pagination-wrap pagination-wrap--single">
+						<?php the_post_navigation( array(
+								'prev_text' => '<div class="pagination-wrap__prev"></div>',
+								'next_text' => '<div class="pagination-wrap__next"></div>'
+								) );
+						?>
 					</div>
 				</div>
 
 				<!-- サイドバー -->
-				<div class="blog-body__side side-bar">
+				<div class="blog-body__side blog-body__side--single side-bar">
 					<?php get_sidebar(); ?>
 				</div>
 			</div>

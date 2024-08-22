@@ -14,7 +14,8 @@
 }
 
 .pagination-wrap__items,
-.wp-pagenavi {
+.wp-pagenavi,
+.navigation.post-navigation .nav-links {
 	display: flex;
 	justify-content: center;
 	gap: rem(12);

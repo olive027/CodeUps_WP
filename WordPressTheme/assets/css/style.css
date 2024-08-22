@@ -2471,7 +2471,7 @@ select {
 }
 
 .side-heading__title::before {
-	background: url(../images/common/whale.png) no-repeat;
+	background: url(../images/common/whale-black.png) no-repeat;
 	background-size: contain;
 	content: "";
 	display: inline-block;

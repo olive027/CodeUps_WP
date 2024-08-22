@@ -108,5 +108,15 @@ function enable_custom_post_type_archives( $args, $post_type ) {
 add_filter( 'register_post_type_args', 'enable_custom_post_type_archives', 10, 2 );
 
 
+// 投稿の抜粋省略記号を「…」に変更する
+add_filter( 'excerpt_more', function( $more ){
+  return '&hellip;';
+}, 999 );
+// 文字数制限を110から200に変更
+add_filter( 'excerpt_length', function( $length ){
+  return 80;
+}, 999 );
+
+
 
 ?>
