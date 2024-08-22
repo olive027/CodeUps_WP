@@ -8,14 +8,10 @@
 
 .pagination-wrap.pagination-wrap--single {
 	gap: rem(82);
-	@include mq(md){
-		margin-right: rem(31);
-	}
 }
 
 .pagination-wrap__items,
-.wp-pagenavi,
-.navigation.post-navigation .nav-links {
+.wp-pagenavi {
 	display: flex;
 	justify-content: center;
 	gap: rem(12);
@@ -107,4 +103,9 @@
 .wp-pagenavi .previouspostslink:hover::before,
 .wp-pagenavi .nextpostslink:hover::before {
 	border-color: $white;
+}
+
+.nav-links {
+	display: flex;
+	gap: rem(80);
 }

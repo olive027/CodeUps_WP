@@ -2052,6 +2052,11 @@ select {
 	border-color: #fff;
 }
 
+.nav-links {
+	display: flex;
+	gap: 5rem;
+}
+
 .pc-nav {
 	display: none;
 }
@@ -3762,10 +3767,6 @@ html {
 .pagetop img {
 	height: 5.5rem;
 	width: 5.5rem;
-}
-
-.pagination-wrap.pagination-wrap--single {
-	margin-right: 1.9375rem;
 }
 
 .pc-nav {

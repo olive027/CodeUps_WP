@@ -59,7 +59,7 @@
 							<?php endif; ?>
 						</figure>
 						<p>
-							<?php the_field('blog_text_2'); ?>
+							<?php echo nl2br(get_field('blog_text_2')); ?>
 						</p>
 						<ul>
 							<li><?php the_field('blog_feature_1'); ?></li>
@@ -67,7 +67,7 @@
 							<li><?php the_field('blog_feature_3'); ?></li>
 						</ul>
 						<p>
-							<?php the_field('blog_text_3'); ?>
+							<?php echo nl2br(get_field('blog_text_3')); ?>
 						</p>
 					</div>
 					<?php endwhile; else: ?>

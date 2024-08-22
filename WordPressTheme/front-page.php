@@ -194,7 +194,7 @@
 								</div>
 							</div>
 							<div class="blog-card__text">
-								<?php the_content(); ?>
+								<?php the_excerpt(); ?>
 							</div>
 						</div>
 					</a>
