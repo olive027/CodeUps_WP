@@ -77,9 +77,10 @@ Template Name: about-us
         	if (!empty($gallery_images)): // 画像が存在するかチェック
           foreach ($gallery_images as $fields): // 繰り返しフィールドの各画像をループ
           $image_url = wp_get_attachment_image_src($fields['gallery_img'] , 'full'); // 画像URLを取得
+					$image_alt = !empty($fields['gallery_img_alt']) ? esc_attr($fields['gallery_img_alt']) : 'Aboutページギャラリー画像'; // altテキストを取得
         ?>
 				<div class="about-gallery__img js-modal-open">
-					<img src="<?php echo esc_url($image_url[0]); ?>" alt="沢山の赤い小さな魚がサンゴ礁の間を泳ぐ様子">
+					<img src="<?php echo esc_url($image_url[0]); ?>" alt="<?php echo $image_alt; ?>">
 				</div>
 
 				<?php endforeach; endif; ?>

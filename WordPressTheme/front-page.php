@@ -5,28 +5,25 @@
 		<div class="mv__inner">
 			<div class="mv__slider swiper js-mv-swiper">
 				<div class="swiper-wrapper">
+					<?php
+						$slides = SCF::get('mv_slides');
+						if (!empty($slides)) : // 取得したデータが空でないか確認
+								foreach ($slides as $slide) : // ループで各スライドを表示
+										$img_pc_id = $slide['mv_img_pc'];
+										$img_sp_id = $slide['mv_img_sp'];
+										$alt_pc = $slide['mv_img_pc_alt'];
+
+										// 画像IDからURLを取得
+										$img_pc_url = wp_get_attachment_image_src($img_pc_id, 'full')[0];
+										$img_sp_url = wp_get_attachment_image_src($img_sp_id, 'full')[0];
+          ?>
 					<div class="swiper-slide">
 						<picture>
-							<source srcset="<?php echo get_theme_file_uri('./assets/images/common/mv-sp-img01.jpg'); ?>"
-								media="(max-width:767px)">
-							<img src="<?php echo get_theme_file_uri('./assets/images/common/mv-img01.jpg'); ?>" alt="海と白い砂浜の画像">
+							<source srcset="<?php echo esc_url($img_sp_url); ?>" media="(max-width:767px)">
+							<img src="<?php echo esc_url($img_pc_url); ?>" alt="<?php echo esc_attr($alt_pc); ?>">
 						</picture>
 					</div>
-					<div class="swiper-slide">
-						<picture>
-							<source srcset="<?php echo get_theme_file_uri('./assets/images/common/mv-sp-img02.jpg'); ?>"
-								media="(max-width:767px)">
-							<img src="<?php echo get_theme_file_uri('./assets/images/common/mv-img02.jpg'); ?>"
-								alt="海中をカメとダイバーが泳いでいる画像">
-						</picture>
-					</div>
-					<div class="swiper-slide">
-						<picture>
-							<source srcset="<?php echo get_theme_file_uri('./assets/images/common/mv-sp-img03.jpg'); ?>"
-								media="(max-width:767px)">
-							<img src="<?php echo get_theme_file_uri('./assets/images/common/mv-img03.jpg'); ?>" alt="海上にいる船の画像">
-						</picture>
-					</div>
+					<?php endforeach; endif; ?>
 				</div>
 				<div class="mv__title-wrap mv-title">
 					<h2 class="mv-title__main">diving</h2>
@@ -44,16 +41,16 @@
 			<div class="campaign__slider swiper js-campaign-swiper">
 				<div class="campaign__cards swiper-wrapper">
 					<?php
-					$news_query = new WP_Query(
+					$campaign_query = new WP_Query(
 						array(
 							'post_type'      => 'campaign',
 							'posts_per_page' => 15,
 						)
 					);
 					?>
-					<?php if ( $news_query->have_posts() ) : ?>
-					<?php while ( $news_query->have_posts() ) : ?>
-					<?php $news_query->the_post(); ?>
+					<?php if ( $campaign_query->have_posts() ) : ?>
+					<?php while ( $campaign_query->have_posts() ) : ?>
+					<?php $campaign_query->the_post(); ?>
 					<div class="campaign__card campaign-card swiper-slide">
 						<div class="campaign-card__img">
 							<?php $campaign_img = get_field('campaign_img');

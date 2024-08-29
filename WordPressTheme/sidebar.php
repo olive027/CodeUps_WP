@@ -164,20 +164,20 @@ if ($popular_posts->have_posts()) : ?>
 
             // 月ごとのアーカイブリストを取得
             $months = $wpdb->get_results($wpdb->prepare(
-                "SELECT DISTINCT MONTH(post_date) as month 
-                 FROM $wpdb->posts 
-                 WHERE post_status = 'publish' 
+                "SELECT DISTINCT MONTH(post_date) as month
+                 FROM $wpdb->posts
+                 WHERE post_status = 'publish'
 								 AND post_type = 'post'
-                 AND YEAR(post_date) = %d 
-                 ORDER BY post_date DESC", 
+                 AND YEAR(post_date) = %d
+                 ORDER BY post_date DESC",
                 $year
             ));
 
-            // 月別リストを非表示で表示
+            // 月別リストを表示
             echo '<ul class="side-archive__body js-archive-body">';
             foreach ($months as $month) {
                 $month_link = get_month_link($year, $month->month);
-								
+
                 // 日本語で月を表示するための配列
                 $months_japanese = array(
 									1  => '1月',
@@ -195,7 +195,7 @@ if ($popular_posts->have_posts()) : ?>
 							);
 
 							$month_name = $months_japanese[$month->month];
-								
+
                 echo '<li class="side-archive__link"><a href="' . esc_url($month_link) . '">' . esc_html($month_name) . '</a></li>';
             }
             echo '</ul>';
