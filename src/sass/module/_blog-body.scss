@@ -14,6 +14,20 @@
 	}
 }
 
+.blog-body__main {
+	@include mq(md){
+		width: 85%;
+	}
+}
+
+.blog-body__side {
+	margin-top: rem(80);
+	@include mq(md){
+		margin-top: 0;
+		width: 34.9%;
+	}
+}
+
 .blog-body__cards {
 	margin: 0 rem(6);
 	@include mq(md){
@@ -22,11 +36,6 @@
 }
 
 // ====== single.html =============
-.blog-body__main {
-	@include mq(md){
-		width: 85%;
-	}
-}
 .blog-body__date {
 	font-family: $english-font-family;
 	font-size: rem(14);
@@ -110,18 +119,5 @@
 	margin-top: rem(40);
 	@include mq(md){
 		margin-top: rem(80);
-	}
-}
-
-.blog-body__side {
-	margin-top: rem(80);
-	@include mq(md){
-		margin-top: 0;
-	}
-}
-
-.blog-body__side--single {
-	@include mq(md){
-		width: 34.9%;
 	}
 }

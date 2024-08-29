@@ -1,45 +1,49 @@
 <ul class="side-bar__items">
+	<?php
+$args = array(
+	// 人気記事の表示をカスタマイズする
+    'posts_per_page' => 3, // 表示する記事数を3件に制限
+    'meta_key' => 'post_views_count', // 閲覧数をカウントするメタキー
+    'orderby' => 'meta_value_num', // 閲覧数の多い順に並べる
+    'order' => 'DESC', // 降順で並べる
+    'post_type' => 'post', // 投稿タイプを指定
+    'post_status' => 'publish', // 公開状態の投稿のみ表示
+    'ignore_sticky_posts' => 1 // 固定投稿を無視する
+);
+
+// クエリを実行して投稿を取得
+$popular_posts = new WP_Query($args);
+
+if ($popular_posts->have_posts()) : ?>
 	<!-- 人気記事 -->
 	<li class="side-bar__item">
 		<div class="side-bar__heading side-heading">
 			<h2 class="side-heading__title">人気記事</h2>
 		</div>
+
 		<ul class="side-bar__content side-blog">
+			<?php while ($popular_posts->have_posts()) : $popular_posts->the_post(); ?>
 			<li class="side-blog__item side-blog-card">
-				<a href="" class="side-blog-card__link">
+				<a href="<?php the_permalink(); ?>" class="side-blog-card__link">
 					<div class="side-blog-card__img">
-						<img src="./assets/images/common/blog-card01.jpg" alt="黄色い魚が海中を泳ぐ画像">
+						<?php the_post_thumbnail('post-thumbnail'); ?>
 					</div>
 					<div class="side-blog-card__body">
-						<time class="side-blog-card__date" datetime="2023-11-17">2024.1.5</time>
-						<p class="side-blog-card__title">シテンヤッコ</p>
+						<time class="side-blog-card__date" datetime="<?php the_time('Y-m-d'); ?>">
+							<?php the_time('Y.m.d'); ?>
+						</time>
+						<p class="side-blog-card__title"><?php the_title(); ?></p>
 					</div>
 				</a>
 			</li>
-			<li class="side-blog__item side-blog-card">
-				<a href="" class="side-blog-card__link">
-					<div class="side-blog-card__img">
-						<img src="./assets/images/common/blog-img02.jpg" alt="ウミガメが海中を泳ぐ画像">
-					</div>
-					<div class="side-blog-card__body">
-						<time class="side-blog-card__date" datetime="2023-11-17">2024.2.28</time>
-						<p class="side-blog-card__title">ウミガメと泳ぐ</p>
-					</div>
-				</a>
-			</li>
-			<li class="side-blog__item side-blog-card">
-				<a href="" class="side-blog-card__link">
-					<div class="side-blog-card__img">
-						<img src="./assets/images/common/blog-img03.jpg" alt="カクレクマノミがサンゴから顔を出す画像">
-					</div>
-					<div class="side-blog-card__body">
-						<time class="side-blog-card__date" datetime="2023-11-17">2024.1.31</time>
-						<p class="side-blog-card__title">カクレクマノミ</p>
-					</div>
-				</a>
-			</li>
+			<?php endwhile; ?>
 		</ul>
 	</li>
+	<?php
+    // クエリ後にリセットする
+    wp_reset_postdata();
+	endif;
+	?>
 	<!-- 口コミ -->
 	<li class="side-bar__item">
 		<div class="side-bar__heading side-heading">
@@ -145,22 +149,59 @@
 			<h2 class="side-heading__title">アーカイブ</h2>
 		</div>
 		<ul class="side-bar__content side-archive">
-			<li class="side-archive__item js-archive-item">
-				<div class="side-archive__header js-archive-header">2023</div>
-				<ul class="side-archive__body js-archive-body">
-					<li class="side-archive__link"><a href="">3月</a></li>
-					<li class="side-archive__link"><a href="">2月</a></li>
-					<li class="side-archive__link"><a href="">1月</a></li>
-				</ul>
-			</li>
-			<li class="side-archive__item js-archive-item">
-				<div class="side-archive__header js-archive-header">2022</div>
-				<ul class="side-archive__body js-archive-body">
-					<li class="side-archive__link"><a href="">12月</a></li>
-					<li class="side-archive__link"><a href="">11月</a></li>
-					<li class="side-archive__link"><a href="">10月</a></li>
-				</ul>
-			</li>
+
+			<?php
+        global $wpdb;
+
+        // 年ごとのアーカイブリストを取得
+        $years_data = $wpdb->get_col("SELECT DISTINCT YEAR(post_date) FROM $wpdb->posts WHERE post_status = 'publish' ORDER BY post_date DESC");
+
+        foreach ($years_data as $year) {
+            echo '<li class="side-archive__item js-archive-item">';
+            echo '<div class="side-archive__header js-archive-header">';
+            echo '<a href="' . get_year_link($year) . '">' . $year . '</a>';
+            echo '</div>';
+
+            // 月ごとのアーカイブリストを取得
+            $months = $wpdb->get_results($wpdb->prepare(
+                "SELECT DISTINCT MONTH(post_date) as month 
+                 FROM $wpdb->posts 
+                 WHERE post_status = 'publish' 
+								 AND post_type = 'post'
+                 AND YEAR(post_date) = %d 
+                 ORDER BY post_date DESC", 
+                $year
+            ));
+
+            // 月別リストを非表示で表示
+            echo '<ul class="side-archive__body js-archive-body">';
+            foreach ($months as $month) {
+                $month_link = get_month_link($year, $month->month);
+								
+                // 日本語で月を表示するための配列
+                $months_japanese = array(
+									1  => '1月',
+									2  => '2月',
+									3  => '3月',
+									4  => '4月',
+									5  => '5月',
+									6  => '6月',
+									7  => '7月',
+									8  => '8月',
+									9  => '9月',
+									10 => '10月',
+									11 => '11月',
+									12 => '12月'
+							);
+
+							$month_name = $months_japanese[$month->month];
+								
+                echo '<li class="side-archive__link"><a href="' . esc_url($month_link) . '">' . esc_html($month_name) . '</a></li>';
+            }
+            echo '</ul>';
+            echo '</li>';
+        }
+        ?>
 		</ul>
 	</li>
 </ul>

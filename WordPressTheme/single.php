@@ -1,5 +1,4 @@
 <?php get_header(); ?>
-
 <main>
 	<div class="blog-mv common-mv">
 		<div class="common-mv__inner">
@@ -86,7 +85,7 @@
 				</div>
 
 				<!-- サイドバー -->
-				<div class="blog-body__side blog-body__side--single side-bar">
+				<div class="blog-body__side side-bar">
 					<?php get_sidebar(); ?>
 				</div>
 			</div>
