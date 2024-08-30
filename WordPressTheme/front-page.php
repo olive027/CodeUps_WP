@@ -100,7 +100,7 @@
 	<section class="about top-about">
 		<div class="about__inner inner">
 			<div class="about__section-title section-title">
-				<span class="section-title__main">about&nbsp;us</span>
+				<span class="section-title__main section-title__main--about">about&nbsp;us</span>
 				<h2 class="section-title__sub">私たちについて</h2>
 			</div>
 			<div class="about__body">

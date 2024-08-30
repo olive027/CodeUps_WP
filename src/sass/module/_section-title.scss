@@ -44,6 +44,13 @@
 	}
 }
 
+.section-title__main--about {
+	text-transform: none;
+}
+.section-title__main--about::first-letter {
+	text-transform: capitalize;
+}
+
 .section-title__main.section-title__main--contact {
 	font-size: rem(80);
 	line-height: 1;

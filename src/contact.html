@@ -220,25 +220,25 @@
       <!-- contact -->
       <section class="contact-body layout-body layout-body--contact fish-icon">
         <div class="contact-body__inner inner">
-          <form action="" method="post" id="form" class="contact-body__form form">
+          <div id="form" class="contact-body__form form">
             <div class="form__error">※必須項目が入力されていません。<br class="u-mobile">入力してください。
             </div>
             <dl class="form__item">
               <dt class="form__label">お名前<span>必須</span></dt>
               <dd class="form__input">
-                <input type="text" name="お名前" id="name" value="" placeholder="沖縄　太郎" class="form__input-text" required>
+                <input type="text" name="your_name" id="name" value="" placeholder="沖縄　太郎" class="form__input-text" required>
               </dd>
             </dl>
             <dl class="form__item">
               <dt class="form__label">メールアドレス<span>必須</span></dt>
               <dd class="form__input">
-                <input type="email" name="メールアドレス" id="email" class="form__input-text" placeholder="aaa000@ggmail.com" required>
+                <input type="email" name="email" id="email" class="form__input-text" placeholder="aaa000@ggmail.com" required>
               </dd>
             </dl>
             <dl class="form__item">
               <dt class="form__label">電話番号<span>必須</span></dt>
               <dd class="form__input">
-                <input type="tel" name="電話番号" id="tel" class="form__input-text" placeholder="000-0000-0000" required>
+                <input type="tel" name="tel" id="tel" class="form__input-text" placeholder="000-0000-0000" required>
               </dd>
             </dl>
             <dl class="form__item form__item--check">
@@ -264,7 +264,7 @@
             <dl class="form__item">
               <dt class="form__label">キャンペーン</dt>
               <dd class="form__input">
-                <select name="キャンペーン" class="form__input-text form__input-text--select">
+                <select name="select-campaign" class="form__input-text form__input-text--select">
                   <option value="">キャンペーン内容を選択</option>
                   <option value="ライセンス取得">ライセンス取得</option>
                   <option value="体験ダイビング">体験ダイビング</option>
@@ -276,7 +276,7 @@
             <dl class="form__item">
               <dt class="form__label">お問合せ内容<span>必須</span></dt>
               <dd class="form__input textarea">
-                <textarea name="お問い合わせ内容" id="message" placeholder="入力してください" class="form__input-text" required></textarea>
+                <textarea name="message" id="message" placeholder="入力してください" class="form__input-text" required></textarea>
               </dd>
             </dl>
             <div class="form__privacy">
@@ -289,7 +289,7 @@
               <input type="submit" value="send">
               <span></span>
             </div>
-          </form>
+          </div>
         </div>
       </section>
     </main>

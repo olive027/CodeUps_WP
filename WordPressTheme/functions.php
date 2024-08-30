@@ -143,4 +143,12 @@ function track_post_views($post_id) {
 add_action('wp_head', 'track_post_views');
 
 
+// =========== Contact Form 7で自動挿入されるPタグ、brタグを削除 ============================================
+add_filter('wpcf7_autop_or_not', 'wpcf7_autop_return_false');
+function wpcf7_autop_return_false() {
+  return false;
+}
+
+
+
 ?>
