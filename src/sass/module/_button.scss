@@ -66,6 +66,11 @@
 	transition: background-image .3s;
 }
 
+.button.button--form span::after {
+	right: rem(52);
+	height: rem(7.1);
+}
+
 .button.button--green span::after {
 	background: url(../images/common/button-arrow-green.png) no-repeat;
 	background-size: contain;
@@ -112,4 +117,17 @@
 
 .button.button--green:hover span::after {
 	background-image: url(../images/common/button-arrow-white.png);
+}
+
+.wpcf7 .wpcf7-spinner {
+	display: none !important;
+}
+
+.wpcf7-submit {
+	padding-left: rem(20);
+	color: $white;
+}
+
+.button:hover .wpcf7-submit {
+	color: $green1;
 }

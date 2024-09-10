@@ -124,18 +124,7 @@ textarea.form__input-text {
 
 input[type="checkbox"]:checked + .wpcf7-list-item-label::after {
 	opacity: 1;
-	// @include mq(md){
-	// 	top: 50%;
-	// }
 }
-
-// .form__input label.fan {
-// 	margin-top: rem(4);
-// }
-
-// .form__input label.experience {
-// 	margin-top: rem(2);
-// }
 
 select {
 	background: url(../images/common/select-arrow.png) no-repeat;
