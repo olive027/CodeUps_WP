@@ -164,7 +164,8 @@ Template Name: price
 			<div class="contact__content">
 				<div class="contact__left">
 					<div class="contact__logo">
-						<img src="./assets/images/common/CodeUps-logo-green.png" alt="CodeUps-logo">
+						<img src="<?php echo get_theme_file_uri(''); ?>/assets/images/common/CodeUps-logo-green.png"
+							alt="CodeUps-logo">
 					</div>
 					<div class="contact__info">
 						<div class="contact__info-text">
