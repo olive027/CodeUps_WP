@@ -11,17 +11,6 @@
 	}
 }
 
-.footer-nav.footer-nav--sitemap .footer-nav__left-item a,
-.footer-nav.footer-nav--sitemap .footer-nav__right-item a {
-	color: $green1;
-}
-
-.footer-nav.footer-nav--sitemap .footer-nav__left-item:first-child a::before,
-.footer-nav.footer-nav--sitemap .footer-nav__right-item:first-child a::before {
-	background: url(../images/common/hitode-green.png) no-repeat;
-	background-size: contain;
-}
-
 .footer-nav__left,
 .footer-nav__right {
 	width: calc(50% - rem(5));

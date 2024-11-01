@@ -1237,17 +1237,6 @@ a {
 	white-space: nowrap;
 }
 
-.footer-nav.footer-nav--sitemap .footer-nav__left-item a,
-.footer-nav.footer-nav--sitemap .footer-nav__right-item a {
-	color: #408F95;
-}
-
-.footer-nav.footer-nav--sitemap .footer-nav__left-item:first-child a::before,
-.footer-nav.footer-nav--sitemap .footer-nav__right-item:first-child a::before {
-	background: url(../images/common/hitode-green.png) no-repeat;
-	background-size: contain;
-}
-
 .footer-nav__left,
 .footer-nav__right {
 	width: calc(50% - 0.3125rem);
@@ -3937,7 +3926,7 @@ html {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
-	height: 15.125rem;
+	height: 18.125rem;
 	width: 50%;
 }
 
