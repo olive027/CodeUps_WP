@@ -6,17 +6,6 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 	<meta name="format-detection" content="telephone=no" />
 	<meta name="robots" content="noindex" />
-	<!-- meta情報 -->
-	<title>CodeUps Diving</title>
-	<meta name="description" content="CodeUps課題" />
-	<meta name="keywords" content="" />
-	<!-- ogp -->
-	<meta property="og:title" content="CodeUps Diving" />
-	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://www.diving-wp.web-s-k.site/" />
-	<meta property="og:image" content="" />
-	<meta property="og:site_name" content="CodeUps Diving" />
-	<meta property="og:description" content="CodeUps Diving-shop Wordpress" />
 
 	<?php wp_head(); ?>
 </head>
