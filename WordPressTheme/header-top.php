@@ -12,11 +12,11 @@
 	<meta name="keywords" content="" />
 	<!-- ogp -->
 	<meta property="og:title" content="CodeUps Diving" />
-	<meta property="og:type" content="" />
-	<meta property="og:url" content="" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://www.diving-wp.web-s-k.site/" />
 	<meta property="og:image" content="" />
 	<meta property="og:site_name" content="CodeUps Diving" />
-	<meta property="og:description" content="CodeUps課題" />
+	<meta property="og:description" content="CodeUps Diving-shop Wordpress" />
 
 	<?php wp_head(); ?>
 </head>
