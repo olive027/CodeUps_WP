@@ -98,6 +98,11 @@
 						<a href="<?php echo esc_url( home_url( '/' ) ); ?>contact">お問い合わせ</a>
 					</li>
 				</ul>
+				<ul class="footer-nav__right-items">
+					<li class="footer-nav__right-item">
+						<a href="<?php echo esc_url( home_url( '/' ) ); ?>sitemap">サイトマップ</a>
+					</li>
+				</ul>
 			</div>
 		</nav>
 		<small
@@ -105,7 +110,7 @@
 	</div>
 </footer>
 <div class="pagetop">
-	<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
+	<a href="#">
 		<img src="<?php echo get_theme_file_uri('./assets/images/common/pagetop-btn.png'); ?>" alt="ページトップへのボタン画像">
 	</a>
 </div>
