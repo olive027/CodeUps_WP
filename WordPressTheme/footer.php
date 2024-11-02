@@ -1,4 +1,18 @@
-<footer class="footer">
+<footer class="footer <?php
+    // page-contact.php の場合
+    if ( is_page( 'contact' ) ) {
+        echo 'footer--contact';
+    }
+    // page-contact-thanks.php の場合
+    elseif ( is_page( 'contact-thanks' ) ) {
+        echo 'footer--thanks';
+    }
+    // 404.php の場合
+    elseif ( is_404() ) {
+        echo 'footer--404';
+    }
+    // 他のページの場合は何も追加しない
+?>">
 	<div class="footer__inner inner">
 		<div class="footer__head">
 			<div class="footer__logo">
