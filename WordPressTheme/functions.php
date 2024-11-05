@@ -48,7 +48,7 @@ function my_theme_enqueue_scripts() {
 add_action('wp_enqueue_scripts', 'my_theme_enqueue_scripts');
 
 
-//=============== 管理画面メニュー並び順変更 =====================================================
+//=============== 管理画面メニュー並び順変更 ==================================================================
 function sort_side_menu( $menu_order ) {
   return array(
       "index.php", // ダッシュボード
@@ -72,7 +72,7 @@ add_filter( 'custom_menu_order', '__return_true' );
 add_filter( 'menu_order', 'sort_side_menu' );
 
 
-//=============== 管理画面メニュー名変更 =====================================================
+//=============== 管理画面メニュー名変更 ===============================================================
 function change_menu_label() {
   global $menu, $submenu;
   $menu[5][0] = 'ブログ';
@@ -98,26 +98,45 @@ add_action( 'init', 'Change_objectlabel' );
 add_action( 'admin_menu', 'change_menu_label' );
 
 
-//=============== archive.php有効 =====================================================
+//=============== archive.php有効 =============================================================
 function enable_custom_post_type_archives( $args, $post_type ) {
   if ( 'voice' === $post_type || 'campaign' === $post_type ) {
-      $args['has_archive'] = true;
+    $args['has_archive'] = true;
   }
   return $args;
 }
 add_filter( 'register_post_type_args', 'enable_custom_post_type_archives', 10, 2 );
 
 
-// 投稿の抜粋省略記号を「…」に変更する
+//=============== カスタム投稿の投稿数 ==============================================================
+function custom_posts_per_page( $query ) {
+  // 管理画面や他のクエリを除外し、メインクエリのみを対象にする
+  if ( !is_admin() && $query->is_main_query() ) {
+      // カスタム投稿タイプ "campaign" の投稿数を制限
+      if ( $query->is_post_type_archive( 'campaign' ) ) {
+          $query->set( 'posts_per_page', 4 ); // "campaign"の投稿数を制限
+      }
+
+      // カスタム投稿タイプ "voice" の投稿数を制限
+      if ( $query->is_post_type_archive( 'voice' ) ) {
+          $query->set( 'posts_per_page', 6 ); // "voice"の投稿数を制限
+      }
+  }
+}
+add_action( 'pre_get_posts', 'custom_posts_per_page' );
+
+
+// ============== 投稿の抜粋省略記号を「…」に変更する ============================================================
 add_filter( 'excerpt_more', function( $more ){
   return '&hellip;';
 }, 999 );
-// 文字数制限を110から200に変更
+// 文字数制限を80に変更
 add_filter( 'excerpt_length', function( $length ){
   return 80;
 }, 999 );
 
-// ================= 人気記事 ================
+
+// ================= 人気記事 ============================================================
 function set_post_views($postID) {
   $count_key = 'post_views_count';
   $count = get_post_meta($postID, $count_key, true);
@@ -131,7 +150,8 @@ function set_post_views($postID) {
   }
 }
 
-// 投稿が表示されたときにカウントを増やす
+
+// ============ 投稿が表示されたときにカウントを増やす ===============================================================
 function track_post_views($post_id) {
   if (!is_single()) return;
   if (empty($post_id)) {
@@ -143,14 +163,52 @@ function track_post_views($post_id) {
 add_action('wp_head', 'track_post_views');
 
 
-// =========== Contact Form 7で自動挿入されるPタグ、brタグを削除 ============================================
+// =========== Contact Form 7で自動挿入されるPタグ、brタグを削除 ================================================================
 add_filter('wpcf7_autop_or_not', 'wpcf7_autop_return_false');
 function wpcf7_autop_return_false() {
   return false;
 }
 
 
-// Contact Form7の送信ボタンをクリックした後の遷移先設定
+// =========== ContactForm 7のプルダウンメニューにキャンペーンのタイトルを表示する =====================================================
+// Contact Form 7のプルダウンメニューに「campaign」カスタム投稿のタイトルを追加
+add_filter( 'wpcf7_form_tag', 'add_campaign_titles_to_select', 10, 2 );
+
+function add_campaign_titles_to_select( $tag, $unused ) {
+    // タグが 'select'（プルダウン）であるか確認
+    if ( $tag['type'] != 'select' ) {
+        return $tag;
+    }
+
+    // タグの名前が 'campaign-select'（プルダウン名）であるか確認
+    if ( $tag['name'] != 'campaign-select' ) {
+        return $tag;
+    }
+
+    // 「campaign」カスタム投稿タイプの投稿を取得
+    $campaign_posts = get_posts( array(
+        'post_type' => 'campaign',
+        'posts_per_page' => -1, // 全ての投稿を取得
+        'post_status' => 'publish' // 公開されている投稿のみ
+    ) );
+
+    // 「選択してください」を先頭に追加
+    $options = array( '選択してください' );
+    // 取得した投稿タイトルを選択肢に追加
+    foreach ( $campaign_posts as $post ) {
+        $options[] = $post->post_title;
+    }
+
+    // 選択肢を設定
+    $tag['raw_values'] = $options;
+    $tag['values'] = $options;
+
+    return $tag;
+}
+
+
+
+// ============= Contact Form7の送信ボタンをクリックした後の遷移先設定 ==================================================================
 add_action( 'wp_footer', 'add_origin_thanks_page' );
 function add_origin_thanks_page() {
  $thanks = home_url('/contact-thanks/');

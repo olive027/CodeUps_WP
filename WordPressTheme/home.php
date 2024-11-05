@@ -73,9 +73,9 @@
 				</div>
 
 				<!-- サイドバー -->
-				<div class="blog-body__side side-bar">
+				<aside class="blog-body__side side-bar">
 					<?php get_sidebar(); ?>
-				</div>
+				</aside>
 			</div>
 		</div>
 	</section>

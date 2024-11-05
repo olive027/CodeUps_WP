@@ -15,7 +15,12 @@ if (is_front_page()) {
 	<?php wp_head(); ?>
 </head>
 
-<body <?php body_class( is_404() ? 'error-bg' : '' ); ?>>
+<body class="<?php
+    // 404.php の場合
+    if ( is_404() ) {
+        echo 'error-bg';
+    }
+?>">
 	<header class="header">
 		<div class="header__inner">
 			<h1 class="header__logo">

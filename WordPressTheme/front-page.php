@@ -259,7 +259,7 @@
 						</div>
 					</div>
 					<div class="voice-card__text">
-						<?php the_content(); ?>
+						<?php the_excerpt(); ?>
 					</div>
 				</div>
 				<?php endwhile; else: ?>

@@ -60,28 +60,7 @@
 				<?php endif; ?>
 			</ul>
 			<div class="campaign-body__cards fish-icon">
-				<?php
-					// if( wp_is_mobile() ){
-					// 	$num = 4; // スマホの表示数(全件は-1)
-					// } else {
-					// 	$num = 6; // PCの表示数(全件は-1)
-					// }
-					$paged = get_query_var('paged') ? get_query_var('paged') : 1;
-					$args = [
-						'post_type' => 'campaign', // カスタム投稿の投稿タイプスラッグ
-						'paged' => $paged, // ページネーションがある場合に必要
-						'posts_per_page' => 6, // 表示件数
-						// カテゴリー(ターム)を指定する場合に書く↓
-						'tax_query' => array (
-							array (
-								'taxonomy' => 'campaign_category', // タクソノミーのスラッグ
-								'field' => 'slug',
-								'terms' => $current_term_slug ? $current_term_slug : get_terms(['taxonomy' => 'campaign_category', 'fields' => 'slugs']),
-							)),
-						// カテゴリー(ターム)を指定する場合に書く↑
-					];
-					$wp_query = new WP_Query($args);
-					if (have_posts()): while (have_posts()): the_post();
+				<?php if (have_posts()): while (have_posts()): the_post();
 				?>
 				<div class="campaign-body__card campaign-card campaign-card--page">
 					<div class="campaign-card__img">

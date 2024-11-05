@@ -21,11 +21,11 @@
 				</a>
 			</div>
 			<div class="footer__sns">
-				<a href="" class="footer__snsLink">
+				<a href="https://www.facebook.com/" target="_blank" class="footer__snsLink">
 					<img src="<?php echo get_theme_file_uri('./assets/images/common/footer-FacebookLogo.png'); ?>"
 						alt="facebook-logo">
 				</a>
-				<a href="" class="footer__snsLink">
+				<a href="https://www.instagram.com/" target="_blank" class="footer__snsLink">
 					<img src="<?php echo get_theme_file_uri('./assets/images/common/footer-InstagramLogo.png'); ?>"
 						alt="instagram-logo">
 				</a>
