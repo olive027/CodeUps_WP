@@ -29,7 +29,7 @@ if ($popular_posts->have_posts()) : ?>
 						<?php the_post_thumbnail('post-thumbnail'); ?>
 					</div>
 					<div class="side-blog-card__body">
-						<time class="side-blog-card__date" datetime="<?php the_time('Y-m-d'); ?>">
+						<time class="side-blog-card__date" datetime="<?php the_time('c'); ?>">
 							<?php the_time('Y.m.d'); ?>
 						</time>
 						<p class="side-blog-card__title"><?php the_title(); ?></p>

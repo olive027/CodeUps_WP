@@ -163,14 +163,9 @@
 			<ul class="blog__cards blog-cards">
 				<!-- 記事のループ処理開始 -->
 				<?php
-					if( wp_is_mobile() ){
-						$num = 3; //スマホの表示数(全件は-1)
-					} else {
-						$num = 3; //PCの表示数(全件は-1)
-					}
 					$args = [
 						'post_type' => 'post', // 投稿タイプのスラッグ(通常投稿なので'post')
-						'posts_per_page' => $num, // 表示件数
+						'posts_per_page' => 3, // 表示件数
 					];
 					$the_query = new WP_Query( $args );
 					if ( $the_query->have_posts() ) :
@@ -183,7 +178,7 @@
 						</div>
 						<div class="blog-card__body">
 							<div class="blog-card__meta">
-								<time class="blog-card__date" datetime="<?php the_time('Y-m-d'); ?>">
+								<time class="blog-card__date" datetime="<?php the_time('c'); ?>">
 									<?php the_time('Y.m.d'); ?>
 								</time>
 								<div class="blog-card__title">

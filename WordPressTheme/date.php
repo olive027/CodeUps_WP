@@ -46,7 +46,7 @@
 								</div>
 								<div class="blog-card__body">
 									<div class="blog-card__meta">
-										<time class="blog-card__date" datetime="<?php the_time('Y-m-d'); ?>">
+										<time class="blog-card__date" datetime="<?php the_time('c'); ?>">
 											<?php the_time('Y.m.d'); ?>
 										</time>
 										<div class="blog-card__title">

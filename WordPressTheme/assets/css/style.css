@@ -1206,7 +1206,7 @@ a {
 }
 
 .faq-body__inner.inner {
-	max-width: 43.75rem;
+	max-width: 46.875rem;
 }
 
 .faq-body__accordion.fish-icon::before {
@@ -1324,18 +1324,6 @@ a {
 	justify-content: center;
 	line-height: 1.5;
 	margin-top: 1.75rem;
-}
-
-.footer.footer--contact {
-	margin-top: 9.1875rem;
-}
-
-.footer.footer--thanks {
-	margin-top: 8.9375rem;
-}
-
-.footer.footer--404 {
-	margin-top: 0.3125rem;
 }
 
 .form__item {
@@ -2120,7 +2108,7 @@ select {
 }
 
 .price-body__inner.inner {
-	max-width: 43.75rem;
+	max-width: 46.875rem;
 }
 
 .price-body__content.fish-icon::before {
@@ -3519,18 +3507,6 @@ html {
 .footer__copyright {
 	font-size: 0.875rem;
 	margin-top: 3.4375rem;
-}
-
-.footer.footer--contact {
-	margin-top: 10.1875rem;
-}
-
-.footer.footer--thanks {
-	margin-top: 7.4375rem;
-}
-
-.footer.footer--404 {
-	margin-top: 1.1875rem;
 }
 
 .form__item {

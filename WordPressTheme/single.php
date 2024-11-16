@@ -37,7 +37,7 @@
 							if ( have_posts() ) : while ( have_posts() ) : the_post();
 					?>
 					<div class="blog-body__head">
-						<time class="blog-body__date" datetime="<?php the_time('Y-m-d'); ?>">
+						<time class="blog-body__date" datetime="<?php the_time('c'); ?>">
 							<?php the_time('Y.m.d'); ?>
 						</time>
 						<h1 class="blog-body__title"><?php the_title(); ?></h1>
