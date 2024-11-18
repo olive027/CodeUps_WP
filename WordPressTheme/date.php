@@ -11,7 +11,7 @@
 				</picture>
 			</div>
 			<div class="common-mv__title-wrap">
-				<h1 class="common-mv__title">blog</h1>
+				<h1 class="common-mv__title"><?php the_archive_title(); ?></h1>
 			</div>
 		</div>
 	</div>

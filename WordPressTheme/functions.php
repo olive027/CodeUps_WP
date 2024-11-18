@@ -225,5 +225,22 @@ function add_origin_thanks_page() {
 }
 
 
+// ============= date.phpのページタイトルからprefix削除==================================================================
+// the_archive_title(), get_the_archive_title() から余計な文字を削除
+add_filter( 'get_the_archive_title', function ($title) {
+  if (is_date()) {
+      // 年・月・日の表示を適切に変更
+      if (is_year()) {
+          $title = get_the_date('Y年');
+      } elseif (is_month()) {
+          $title = get_the_date('Y年n月');
+      }
+  }
+  return $title;
+});
+
+
+
+
 
 ?>

@@ -46,28 +46,7 @@
 						<?php the_post_thumbnail('post-thumbnail'); ?>
 					</div>
 					<div class="blog-body__singleContent">
-						<p>
-							<?php the_content(); ?>
-						</p>
-						<figure>
-							<?php $blog_img_2 = get_field('blog_img_2');
-								if ($blog_img_2) : ?>
-							<img src="<?php echo esc_url($blog_img_2); ?>" alt="<?php the_title(); ?>">
-							<?php else : ?>
-							<img src=" <?php echo get_template_directory_uri(); ?>/assets/images/common/no-image.png" alt="no-image">
-							<?php endif; ?>
-						</figure>
-						<p>
-							<?php echo nl2br(get_field('blog_text_2')); ?>
-						</p>
-						<ul>
-							<li><?php the_field('blog_feature_1'); ?></li>
-							<li><?php the_field('blog_feature_2'); ?></li>
-							<li><?php the_field('blog_feature_3'); ?></li>
-						</ul>
-						<p>
-							<?php echo nl2br(get_field('blog_text_3')); ?>
-						</p>
+						<?php the_content(); ?>
 					</div>
 					<?php endwhile; else: ?>
 					<p>ただいま準備中です。</p>
@@ -85,7 +64,7 @@
 				</div>
 
 				<!-- サイドバー -->
-				<div class="blog-body__side side-bar">
+				<div class="blog-body__side">
 					<?php get_sidebar(); ?>
 				</div>
 			</div>

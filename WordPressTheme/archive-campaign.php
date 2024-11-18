@@ -96,7 +96,8 @@
 						<div class="campaign-card__detail-text u-desktop">
 							<?php the_content(); ?>
 						</div>
-						<p class="campaign-card__period u-desktop">2023/6/1-9/30</p>
+						<p class="campaign-card__period u-desktop">
+							<?php the_field('campaign_date-start'); ?>-<?php the_field('campaign_date-end'); ?></p>
 						<p class="campaign-card__contact-text u-desktop">ご予約・お問い合わせはコチラ</p>
 						<div class="campaign-card__btn u-desktop">
 							<a href="<?php echo esc_url( home_url('/')); ?>contact" class="button"><span>contact&nbsp;us</span></a>

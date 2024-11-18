@@ -73,7 +73,7 @@
 				</div>
 
 				<!-- サイドバー -->
-				<aside class="blog-body__side side-bar">
+				<aside class="blog-body__side">
 					<?php get_sidebar(); ?>
 				</aside>
 			</div>
