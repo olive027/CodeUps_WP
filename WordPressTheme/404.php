@@ -11,7 +11,7 @@ Template Name: 404
 	</div>
 
 	<!-- 404 -->
-	<section class="error-body layout-body--404">
+	<section class="error-body">
 		<div class="error-body__inner inner">
 			<div class="error-body__content">
 				<h1 class="error-body__title">404</h1>

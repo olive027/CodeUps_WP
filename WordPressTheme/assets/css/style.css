@@ -587,11 +587,11 @@ a {
 	width: 0.3125rem;
 }
 
-.breadcrumbs.breadcrumbs--white .breadcrumbs__item {
+.breadcrumbs--white .breadcrumbs__item {
 	color: #fff;
 }
 
-.breadcrumbs.breadcrumbs--white .breadcrumbs__item:nth-child(n+2)::before {
+.breadcrumbs--white .breadcrumbs__item:nth-child(n+2)::before {
 	background: url(../images/common/breadcrumbs-arrow-white.png) no-repeat;
 	background-size: contain;
 }
@@ -1286,6 +1286,10 @@ a {
 	margin-top: 6.5rem;
 	padding-bottom: 3.5rem;
 	padding-top: 3rem;
+}
+
+.footer.footer--404 {
+	margin-top: 0;
 }
 
 .footer__inner {

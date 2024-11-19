@@ -41,7 +41,7 @@ if ( ! is_404() && ! is_page( 'contact' ) && ! is_page( 'contact-thanks' ) ) :
 </div>
 <?php endif; ?>
 
-<footer class="footer">
+<footer class="footer <?php echo is_404() ? 'footer--404' : ''; ?>">
 	<div class="footer__inner inner">
 		<div class="footer__head">
 			<div class="footer__logo">
