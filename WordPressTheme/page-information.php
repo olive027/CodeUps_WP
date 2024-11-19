@@ -21,15 +21,8 @@ Template Name: information
 	</div>
 
 	<!-- パンくず -->
-	<div class="information-breadcrumbs breadcrumbs layout-breadcrumbs">
-		<div class="breadcrumbs__inner inner">
-			<ul class="breadcrumbs__items">
-				<li class="breadcrumbs__item">
-					<a href="<?php echo esc_url( home_url('/')); ?>">top</a>
-				</li>
-				<li class="breadcrumbs__item">ダイビング情報</li>
-			</ul>
-		</div>
+	<div class="information-breadcrumbs layout-breadcrumbs">
+		<?php get_template_part( 'parts/breadcrumbs' ); ?>
 	</div>
 
 	<!-- information -->

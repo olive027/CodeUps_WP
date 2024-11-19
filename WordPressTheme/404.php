@@ -6,18 +6,8 @@ Template Name: 404
 
 <main">
 	<!-- パンくず -->
-	<div class="error-breadcrumbs breadcrumbs breadcrumbs--white layout-breadcrumbs layout-breadcrumbs--404">
-		<div class="breadcrumbs__inner inner">
-			<ul class="breadcrumbs__items">
-				<li class="breadcrumbs__item">
-					<?php
-						if ( function_exists( 'bcn_display' ) ) {
-							bcn_display();
-						}
-					?>
-				</li>
-			</ul>
-		</div>
+	<div class="error-breadcrumbs breadcrumbs--white layout-breadcrumbs layout-breadcrumbs--404">
+		<?php get_template_part( 'parts/breadcrumbs' ); ?>
 	</div>
 
 	<!-- 404 -->

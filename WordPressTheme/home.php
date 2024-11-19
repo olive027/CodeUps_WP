@@ -17,18 +17,8 @@
 	</div>
 
 	<!-- パンくず -->
-	<div class="blog-breadcrumbs breadcrumbs layout-breadcrumbs">
-		<div class="breadcrumbs__inner inner">
-			<ul class="breadcrumbs__items">
-				<li class="breadcrumbs__item">
-					<?php
-						if ( function_exists( 'bcn_display' ) ) {
-							bcn_display();
-						}
-					?>
-				</li>
-			</ul>
-		</div>
+	<div class="blog-breadcrumbs layout-breadcrumbs">
+		<?php get_template_part( 'parts/breadcrumbs' ); ?>
 	</div>
 
 	<section class="blog-body layout-body">
