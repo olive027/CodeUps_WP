@@ -51,6 +51,10 @@ Template Name: about-us
 	</section>
 
 	<!-- gallery -->
+	<?php
+	$gallery_images = SCF::get('about_gallery');
+	if (!empty($gallery_images)): // 画像が存在する場合のみセクションを出力
+	?>
 	<section class="about-gallery fish-icon">
 		<div class="about-gallery__inner inner">
 			<div class="about-gallery__section-title section-title">
@@ -58,21 +62,15 @@ Template Name: about-us
 				<h2 class="section-title__sub">フォト</h2>
 			</div>
 			<div class="about-gallery__images">
-
 				<?php
-        // Smart Custom Fieldsを使用して、about_galleryカスタム投稿タイプの繰り返し画像を取得
-        	$gallery_images = SCF::get('about_gallery'); // 'about_gallery' フィールドのデータを取得
-
-        	if (!empty($gallery_images)): // 画像が存在するかチェック
-          foreach ($gallery_images as $fields): // 繰り返しフィールドの各画像をループ
-          $image_url = wp_get_attachment_image_src($fields['gallery_img'] , 'full'); // 画像URLを取得
-					$image_alt = !empty($fields['gallery_img_alt']) ? esc_attr($fields['gallery_img_alt']) : 'Aboutページギャラリー画像'; // altテキストを取得
-        ?>
+            foreach ($gallery_images as $fields): // 繰り返しフィールドの各画像をループ
+                $image_url = wp_get_attachment_image_src($fields['gallery_img'], 'full'); // 画像URLを取得
+                $image_alt = !empty($fields['gallery_img_alt']) ? esc_attr($fields['gallery_img_alt']) : 'Aboutページギャラリー画像'; // altテキストを取得
+            ?>
 				<div class="about-gallery__img js-modal-open">
 					<img src="<?php echo esc_url($image_url[0]); ?>" alt="<?php echo $image_alt; ?>">
 				</div>
-
-				<?php endforeach; endif; ?>
+				<?php endforeach; ?>
 			</div>
 		</div>
 		<!-- モーダル -->
@@ -83,6 +81,7 @@ Template Name: about-us
 			</div>
 		</div>
 	</section>
+	<?php endif; // 画像が存在しない場合はセクション全体を出力しない ?>
 
 </main>
 

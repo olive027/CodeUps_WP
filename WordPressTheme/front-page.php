@@ -284,19 +284,22 @@
 				</div>
 				<div class="price__body">
 					<ul class="price__list-wrap">
+						<!-- ライセンス講習 -->
+						<?php
+							// スラッグからページIDを取得
+							$page_price_id = get_page_by_path('price')->ID;
+
+							// price_license_labelとprice_license_costの繰り返しフィールドを取得
+							$price_license_labels = SCF::get('price_license_label', $page_price_id);
+							$price_license_costs = SCF::get('price_license_cost', $page_price_id);
+
+							// ラベルとコストの数が一致するかを確認
+							if (!empty($price_license_labels) && !empty($price_license_costs) && count($price_license_labels) === count($price_license_costs)) {
+    				?>
 						<li class="price__list">
 							<h3 class="price__list-title">ライセンス講習</h3>
 							<dl class="price__list-item">
 								<?php
-						// スラッグからページIDを取得
-						$page_price_id = get_page_by_path('price')->ID;
-
-						// price_license_labelとprice_license_costの繰り返しフィールドを取得
-						$price_license_labels = SCF::get('price_license_label', $page_price_id);
-						$price_license_costs = SCF::get('price_license_cost', $page_price_id);
-
-						// ラベルとコストの数が一致するかを確認
-						if (!empty($price_license_labels) && !empty($price_license_costs) && count($price_license_labels) === count($price_license_costs)) {
 								// 各フィールドをループで処理
 								for ($i = 0; $i < count($price_license_labels); $i++) {
 										$label = $price_license_labels[$i];
@@ -306,85 +309,110 @@
 								<dd><?php echo esc_html($cost); ?></dd>
 								<?php
 								}
-						} else {
-								// フィールドがない場合または数が一致しない場合の処理（任意）
-								echo '<p>ただいま準備中です。</p>';
-						}
-					?>
+								?>
 							</dl>
 						</li>
-						<li class="price__list">
-							<h3 class="price__list-title">体験ダイビング</h3>
-							<dl class="price__list-item">
-								<?php
+						<?php
+						}
+						// フィールドがない場合は<li>タグを出力しない
+						?>
+
+						<!-- 体験ダイビング -->
+						<?php
+							// スラッグからページIDを取得
 							$page_price_id = get_page_by_path('price')->ID;
 
 							$price_experience_labels = SCF::get('price_experience_label', $page_price_id);
 							$price_experience_costs = SCF::get('price_experience_cost', $page_price_id);
 
+							// ラベルとコストの数が一致するかを確認
 							if (!empty($price_experience_labels) && !empty($price_experience_costs) && count($price_experience_labels) === count($price_experience_costs)) {
-									for ($i = 0; $i < count($price_experience_labels); $i++) {
-											$label = $price_experience_labels[$i];
-											$cost = $price_experience_costs[$i];
-											?>
+    				?>
+						<li class="price__list">
+							<h3 class="price__list-title">体験ダイビング</h3>
+							<dl class="price__list-item">
+								<?php
+            // 各フィールドをループで処理
+								for ($i = 0; $i < count($price_experience_labels); $i++) {
+										$label = $price_experience_labels[$i];
+										$cost = $price_experience_costs[$i];
+										?>
 								<dt><?php echo nl2br(esc_html($label)); ?></dt>
 								<dd><?php echo esc_html($cost); ?></dd>
 								<?php
-									}
-							} else {
-									echo '<p>ただいま準備中です。</p>';
-							}
-						?>
+								}
+								?>
 							</dl>
 						</li>
-						<li class="price__list">
-							<h3 class="price__list-title">ファンダイビング</h3>
-							<dl class="price__list-item">
-								<?php
+						<?php
+						}
+						// フィールドがない場合は<li>タグを出力しない
+						?>
+
+						<!-- ファンダイビング -->
+						<?php
+							// スラッグからページIDを取得
 							$page_price_id = get_page_by_path('price')->ID;
 
 							$price_fan_labels = SCF::get('price_fan_label', $page_price_id);
 							$price_fan_costs = SCF::get('price_fan_cost', $page_price_id);
 
+							// ラベルとコストの数が一致するかを確認
 							if (!empty($price_fan_labels) && !empty($price_fan_costs) && count($price_fan_labels) === count($price_fan_costs)) {
-									for ($i = 0; $i < count($price_fan_labels); $i++) {
-											$label = $price_fan_labels[$i];
-											$cost = $price_fan_costs[$i];
-											?>
+    				?>
+						<li class="price__list">
+							<h3 class="price__list-title">ファンダイビング</h3>
+							<dl class="price__list-item">
+								<?php
+								// 各フィールドをループで処理
+								for ($i = 0; $i < count($price_fan_labels); $i++) {
+										$label = $price_fan_labels[$i];
+										$cost = $price_fan_costs[$i];
+										?>
 								<dt><?php echo nl2br(esc_html($label)); ?></dt>
 								<dd><?php echo esc_html($cost); ?></dd>
 								<?php
-									}
-							} else {
-									echo '<p>ただいま準備中です。</p>';
-							}
-						?>
+								}
+								?>
 							</dl>
 						</li>
-						<li class="price__list">
-							<h3 class="price__list-title">スペシャルダイビング</h3>
-							<dl class="price__list-item">
-								<?php
+						<?php
+						}
+						// フィールドがない場合は<li>タグを出力しない
+						?>
+
+						<!-- スペシャルダイビング -->
+						<?php
+							// スラッグからページIDを取得
 							$page_price_id = get_page_by_path('price')->ID;
 
 							$price_special_labels = SCF::get('price_special_label', $page_price_id);
 							$price_special_costs = SCF::get('price_special_cost', $page_price_id);
 
+							// ラベルとコストの数が一致するかを確認
 							if (!empty($price_special_labels) && !empty($price_special_costs) && count($price_special_labels) === count($price_special_costs)) {
-									for ($i = 0; $i < count($price_special_labels); $i++) {
-											$label = $price_special_labels[$i];
-											$cost = $price_special_costs[$i];
-											?>
+    				?>
+						<li class="price__list">
+							<h3 class="price__list-title">スペシャルダイビング</h3>
+							<dl class="price__list-item">
+								<?php
+								// 各フィールドをループで処理
+								for ($i = 0; $i < count($price_special_labels); $i++) {
+										$label = $price_special_labels[$i];
+										$cost = $price_special_costs[$i];
+								?>
 								<dt><?php echo nl2br(esc_html($label)); ?></dt>
 								<dd><?php echo esc_html($cost); ?></dd>
 								<?php
-									}
-							} else {
-									echo '<p>ただいま準備中です。</p>';
-							}
-						?>
+								}
+								?>
 							</dl>
 						</li>
+						<?php
+						}
+						// フィールドがない場合は<li>タグを出力しない
+						?>
+
 					</ul>
 				</div>
 			</div>

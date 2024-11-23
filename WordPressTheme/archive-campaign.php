@@ -79,8 +79,22 @@
 						<div class="campaign-card__wrap">
 							<p class="campaign-card__text">全部コミコミ(お一人様)</p>
 							<div class="campaign-card__price">
-								<div class="campaign-card__price-before"><?php the_field('campaign_price-before'); ?></div>
-								<div class="campaign-card__price-after"><?php the_field('campaign_price-after'); ?></div>
+								<?php
+								$price_before = get_field('campaign_price-before');
+								$price_after = get_field('campaign_price-after');
+								if ($price_before): // 値がある場合のみdivタグを出力
+								?>
+								<div class="campaign-card__price-before">
+									<?php echo esc_html($price_before); ?>
+								</div>
+								<?php endif;
+
+								if ($price_after): // 値がある場合のみdivタグを出力
+								?>
+								<div class="campaign-card__price-after">
+									<?php echo esc_html($price_after); ?>
+								</div>
+								<?php endif;?>
 							</div>
 						</div>
 						<div class="campaign-card__detail-text u-desktop">
