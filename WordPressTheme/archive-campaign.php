@@ -80,19 +80,22 @@
 							<p class="campaign-card__text">全部コミコミ(お一人様)</p>
 							<div class="campaign-card__price">
 								<?php
-								$price_before = get_field('campaign_price-before');
-								$price_after = get_field('campaign_price-after');
+								$campaign_price = get_field('campaign_price');
+
+								// サブフィールドを取得する場合、親フィールド配列から値を取得
+								$price_before = $campaign_price['campaign_price-before'] ?? null;
+								$price_after = $campaign_price['campaign_price-after'] ?? null;
 								if ($price_before): // 値がある場合のみdivタグを出力
 								?>
 								<div class="campaign-card__price-before">
-									<?php echo esc_html($price_before); ?>
+									¥<?php echo esc_html(number_format($price_before)); ?>
 								</div>
 								<?php endif;
 
 								if ($price_after): // 値がある場合のみdivタグを出力
 								?>
 								<div class="campaign-card__price-after">
-									<?php echo esc_html($price_after); ?>
+									¥<?php echo esc_html(number_format($price_after)); ?>
 								</div>
 								<?php endif;?>
 							</div>
@@ -101,7 +104,28 @@
 							<?php the_content(); ?>
 						</div>
 						<p class="campaign-card__period u-desktop">
-							<?php the_field('campaign_date-start'); ?>-<?php the_field('campaign_date-end'); ?></p>
+							<?php
+							$campaign_date = get_field('campaign_date');
+
+							// サブフィールドの値を取得
+							$date_start = $campaign_date['campaign_date-start'] ?? null;
+							$date_end = $campaign_date['campaign_date-end'] ?? null;
+
+							// 値がある場合のみ表示
+							if ($date_start && $date_end) {
+									echo esc_html($date_start . ' - ' . $date_end);
+							} elseif ($date_start) {
+									// 開始日だけがある場合
+									echo esc_html($date_start);
+							} elseif ($date_end) {
+									// 終了日だけがある場合
+									echo esc_html($date_end);
+							} else {
+									// 日付が設定されていない場合（任意で何も表示しないかメッセージを追加）
+									echo esc_html__('', 'text-domain');
+							}
+							?>
+						</p>
 						<p class="campaign-card__contact-text u-desktop">ご予約・お問い合わせはコチラ</p>
 						<div class="campaign-card__btn u-desktop">
 							<a href="<?php echo esc_url( home_url('/')); ?>contact" class="button"><span>contact&nbsp;us</span></a>

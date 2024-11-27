@@ -58,7 +58,27 @@
 						<div class="voice-card__info">
 							<div class="voice-card__meta">
 								<div class="voice-card__age">
-									<?php the_field('voice_age'); ?>
+									<?php
+										$voice_info = get_field('voice_info');
+
+										// サブフィールドの値を取得
+										$info_age = $voice_info['voice_age'] ?? null;
+										$info_gender = $voice_info['voice_gender'] ?? null;
+
+										// 値がある場合のみ表示
+										if ($info_age && $info_gender) {
+												echo esc_html($info_age . '(' . $info_gender . ')');
+										} elseif ($info_age) {
+												// 年齢だけがある場合
+												echo esc_html($info_age);
+										} elseif ($info_gender) {
+												// 性別だけがある場合
+												echo esc_html($info_gender);
+										} else {
+												// 年齢・性別が設定されていない場合（任意で何も表示しないかメッセージを追加）
+												echo esc_html__('', 'text-domain');
+										}
+									?>
 								</div>
 								<div class="voice-card__category">
 									<?php

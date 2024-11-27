@@ -1,0 +1,12 @@
+.acf-field .acf-label label {
+	font-weight: 700 !important;
+	font-size: .875rem !important;
+}
+
+.acf-table > thead > tr > th {
+	background-color: #f0f8ff !important;
+}
+
+.smart-cf-meta-box-table table {
+	width: 60% !important;
+}

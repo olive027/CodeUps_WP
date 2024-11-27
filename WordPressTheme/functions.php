@@ -47,6 +47,12 @@ function my_theme_enqueue_scripts() {
 }
 add_action('wp_enqueue_scripts', 'my_theme_enqueue_scripts');
 
+function my_custom_admin_styles() {
+  wp_enqueue_style('custom-admin-css', get_stylesheet_directory_uri() . '/assets/css/admin-style.css');
+}
+add_action('admin_enqueue_scripts', 'my_custom_admin_styles');
+
+
 
 //=============== 管理画面メニュー並び順変更 ==================================================================
 function sort_side_menu( $menu_order ) {
