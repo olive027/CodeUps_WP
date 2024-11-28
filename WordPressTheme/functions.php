@@ -104,67 +104,131 @@ add_action( 'init', 'Change_objectlabel' );
 add_action( 'admin_menu', 'change_menu_label' );
 
 
+//=============== ダッシュボードカスタマイズ =============================================================
+// 不要なブロックの削除
+function remove_dashboard_widget() {
+  remove_meta_box( 'dashboard_activity', 'dashboard', 'normal' ); // アクティビティ
+  remove_meta_box( 'dashboard_quick_press', 'dashboard', 'side' ); // クイックドラフト
+  remove_meta_box( 'dashboard_primary', 'dashboard', 'side' ); // WordPress イベントとニュース
+  remove_action( 'welcome_panel', 'wp_welcome_panel' ); // ウェルカムパネル
+}
+add_action( 'wp_dashboard_setup', 'remove_dashboard_widget' );
+
+// 新しいウィジェットを追加
+function add_dashboard_widgets() {
+  wp_add_dashboard_widget(
+    'quick_link_dashboard_widget', // ウィジェットのスラッグ名
+    'クイックリンク', // ウィジェットに表示するタイトル
+    'dashboard_widget_function' // 実行する関数
+  );
+}
+add_action( 'wp_dashboard_setup', 'add_dashboard_widgets' );
+
+function dashboard_widget_function() {
+  echo '<ul class="quick-link">';
+  
+  // Blog追加リンク
+  echo '<li class="quick-link__item">';
+  echo '<a href="' . admin_url() . 'post-new.php" class="quick-link__btn">';
+  echo '<span class="dashicons dashicons-blog"></span>';
+  echo '＊ブログ＊<br>新規投稿';
+  echo '</a>';
+  echo '</li>';
+  
+  // campaign追加リンク
+  echo '<li class="quick-link__item">';
+  echo '<a href="' . admin_url() . 'post-new.php?post_type=campaign" class="quick-link__btn">';
+  echo '<span class="dashicons dashicons-campaign"></span>';
+  echo '＊キャンペーン＊<br>記事追加';
+  echo '</a>';
+  echo '</li>';
+  
+  // Voice追加リンク
+  echo '<li class="quick-link__item">';
+  echo '<a href="' . admin_url() . 'post-new.php?post_type=voice" class="quick-link__btn">';
+  echo '<span class="dashicons dashicons-voice"></span>';
+  echo '＊お客様の声＊<br>記事追加';
+  echo '</a>';
+  echo '</li>';
+  
+  // FAQ追加リンク
+  echo '<li class="quick-link__item">';
+  echo '<a href="' . admin_url() . 'post.php?post=20&action=edit" class="quick-link__btn">';
+  echo '<span class="dashicons dashicons-faq"></span>';
+  echo '＊FAQ＊<br>追加';
+  echo '</a>';
+  echo '</li>';
+  
+  
+  echo '</ul>';
+}
+
+
+
+
+
+
 //=============== archive.php有効 =============================================================
 function enable_custom_post_type_archives( $args, $post_type ) {
-  if ( 'voice' === $post_type || 'campaign' === $post_type ) {
-    $args['has_archive'] = true;
-  }
-  return $args;
+if ( 'voice' === $post_type || 'campaign' === $post_type ) {
+$args['has_archive'] = true;
+}
+return $args;
 }
 add_filter( 'register_post_type_args', 'enable_custom_post_type_archives', 10, 2 );
 
 
 //=============== カスタム投稿の投稿数 ==============================================================
 function custom_posts_per_page( $query ) {
-  // 管理画面や他のクエリを除外し、メインクエリのみを対象にする
-  if ( !is_admin() && $query->is_main_query() ) {
-      // カスタム投稿タイプ "campaign" の投稿数を制限
-      if ( $query->is_post_type_archive( 'campaign' ) ) {
-          $query->set( 'posts_per_page', 4 ); // "campaign"の投稿数を制限
-      }
+// 管理画面や他のクエリを除外し、メインクエリのみを対象にする
+if ( !is_admin() && $query->is_main_query() ) {
+// カスタム投稿タイプ "campaign" の投稿数を制限
+if ( $query->is_post_type_archive( 'campaign' ) ) {
+$query->set( 'posts_per_page', 4 ); // "campaign"の投稿数を制限
+}
 
-      // カスタム投稿タイプ "voice" の投稿数を制限
-      if ( $query->is_post_type_archive( 'voice' ) ) {
-          $query->set( 'posts_per_page', 6 ); // "voice"の投稿数を制限
-      }
-  }
+// カスタム投稿タイプ "voice" の投稿数を制限
+if ( $query->is_post_type_archive( 'voice' ) ) {
+$query->set( 'posts_per_page', 6 ); // "voice"の投稿数を制限
+}
+}
 }
 add_action( 'pre_get_posts', 'custom_posts_per_page' );
 
 
 // ============== 投稿の抜粋省略記号を「…」に変更する ============================================================
 add_filter( 'excerpt_more', function( $more ){
-  return '&hellip;';
+return '&hellip;';
 }, 999 );
 // 文字数制限を80に変更
 add_filter( 'excerpt_length', function( $length ){
-  return 80;
+return 80;
 }, 999 );
 
 
 // ================= 人気記事 ============================================================
 function set_post_views($postID) {
-  $count_key = 'post_views_count';
-  $count = get_post_meta($postID, $count_key, true);
-  if($count == ''){
-      $count = 0;
-      delete_post_meta($postID, $count_key);
-      add_post_meta($postID, $count_key, '0');
-  }else{
-      $count++;
-      update_post_meta($postID, $count_key, $count);
-  }
+$count_key = 'post_views_count';
+$count = get_post_meta($postID, $count_key, true);
+if($count == ''){
+$count = 0;
+delete_post_meta($postID, $count_key);
+add_post_meta($postID, $count_key, '0');
+}else{
+$count++;
+update_post_meta($postID, $count_key, $count);
+}
 }
 
 
 // ============ 投稿が表示されたときにカウントを増やす ===============================================================
 function track_post_views($post_id) {
-  if (!is_single()) return;
-  if (empty($post_id)) {
-      global $post;
-      $post_id = $post->ID;
-  }
-  set_post_views($post_id);
+if (!is_single()) return;
+if (empty($post_id)) {
+global $post;
+$post_id = $post->ID;
+}
+set_post_views($post_id);
 }
 add_action('wp_head', 'track_post_views');
 
@@ -172,7 +236,7 @@ add_action('wp_head', 'track_post_views');
 // =========== Contact Form 7で自動挿入されるPタグ、brタグを削除 ================================================================
 add_filter('wpcf7_autop_or_not', 'wpcf7_autop_return_false');
 function wpcf7_autop_return_false() {
-  return false;
+return false;
 }
 
 
@@ -181,72 +245,83 @@ function wpcf7_autop_return_false() {
 add_filter( 'wpcf7_form_tag', 'add_campaign_titles_to_select', 10, 2 );
 
 function add_campaign_titles_to_select( $tag, $unused ) {
-    // タグが 'select'（プルダウン）であるか確認
-    if ( $tag['type'] != 'select' ) {
-        return $tag;
-    }
+// タグが 'select'（プルダウン）であるか確認
+if ( $tag['type'] != 'select' ) {
+return $tag;
+}
 
-    // タグの名前が 'campaign-select'（プルダウン名）であるか確認
-    if ( $tag['name'] != 'campaign-select' ) {
-        return $tag;
-    }
+// タグの名前が 'campaign-select'（プルダウン名）であるか確認
+if ( $tag['name'] != 'campaign-select' ) {
+return $tag;
+}
 
-    // 「campaign」カスタム投稿タイプの投稿を取得
-    $campaign_posts = get_posts( array(
-        'post_type' => 'campaign',
-        'posts_per_page' => -1, // 全ての投稿を取得
-        'post_status' => 'publish' // 公開されている投稿のみ
-    ) );
+// 「campaign」カスタム投稿タイプの投稿を取得
+$campaign_posts = get_posts( array(
+'post_type' => 'campaign',
+'posts_per_page' => -1, // 全ての投稿を取得
+'post_status' => 'publish' // 公開されている投稿のみ
+) );
 
-    // 「選択してください」を先頭に追加
-    $options = array( '選択してください' );
-    // 取得した投稿タイトルを選択肢に追加
-    foreach ( $campaign_posts as $post ) {
-        $options[] = $post->post_title;
-    }
+// 「選択してください」を先頭に追加
+$options = array( '選択してください' );
+// 取得した投稿タイトルを選択肢に追加
+foreach ( $campaign_posts as $post ) {
+$options[] = $post->post_title;
+}
 
-    // 選択肢を設定
-    $tag['raw_values'] = $options;
-    $tag['values'] = $options;
+// 選択肢を設定
+$tag['raw_values'] = $options;
+$tag['values'] = $options;
 
-    return $tag;
+return $tag;
 }
 
 
 
 // ============= Contact Form7の送信ボタンをクリックした後の遷移先設定 ==================================================================
 add_action( 'wp_footer', 'add_origin_thanks_page' );
+
 function add_origin_thanks_page() {
- $thanks = home_url('/contact-thanks/');
-   echo <<< EOC
-     <script>
-       var thanksPage = {
-         299: '{$thanks}'
-       };
-     document.addEventListener( 'wpcf7mailsent', function( event ) {
-       location = thanksPage[event.detail.contactFormId];
-     }, false );
-     </script>
-   EOC;
+    $thanks = home_url('/contact-thanks/');
+
+    // スクリプトを安全に出力
+    ?>
+<script>
+document.addEventListener("wpcf7mailsent", function(event) {
+	var thanksPage = {
+		299: "<?php echo esc_js($thanks); ?>"
+	};
+
+	// contactFormIdが存在し、thanksPageに該当のページがある場合にリダイレクト
+	if (event.detail && event.detail.contactFormId && thanksPage[event.detail.contactFormId]) {
+		location.href = thanksPage[event.detail.contactFormId];
+	} else {
+		console.warn("Thanks page not defined for this form ID:", event.detail ? event.detail.contactFormId :
+			"undefined");
+	}
+});
+</script>
+<?php
 }
 
 
-// ============= date.phpのページタイトルからprefix削除==================================================================
-// the_archive_title(), get_the_archive_title() から余計な文字を削除
-add_filter( 'get_the_archive_title', function ($title) {
-  if (is_date()) {
-      // 年・月・日の表示を適切に変更
-      if (is_year()) {
-          $title = get_the_date('Y年');
-      } elseif (is_month()) {
-          $title = get_the_date('Y年n月');
-      }
-  }
-  return $title;
-});
+
+	// ============= date.phpのページタイトルからprefix削除==================================================================
+	// the_archive_title(), get_the_archive_title() から余計な文字を削除
+	add_filter( 'get_the_archive_title', function ($title) {
+	if (is_date()) {
+	// 年・月・日の表示を適切に変更
+	if (is_year()) {
+	$title = get_the_date('Y年');
+	} elseif (is_month()) {
+	$title = get_the_date('Y年n月');
+	}
+	}
+	return $title;
+	});
 
 
 
 
 
-?>
+	?>

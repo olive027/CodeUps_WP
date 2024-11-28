@@ -10,3 +10,79 @@
 .smart-cf-meta-box-table table {
 	width: 60% !important;
 }
+
+.smart-cf-meta-box-table th {
+	font-size: 14px;
+}
+
+.smart-cf-meta-box-table td .instruction {
+	font-size: 13px !important;
+	color: #acacac;
+}
+
+.edit-post-meta-boxes-area .postbox-header {
+	background-color: #f0f8ff;
+	margin-top: 16px;
+}
+
+#poststuff .inside {
+	margin: 0 0 0;
+	border: 20px solid #f0f8ff;
+}
+
+.quick-link {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
+	gap: 20px;
+}
+
+.quick-link__item {
+	display: flex;
+	flex-direction: column;
+}
+
+.quick-link__btn {
+	display: inline-block;
+	/* width: 200px; */
+	padding: 16px;
+	text-align: center;
+	background-color: #408F95;
+	color: #fff;
+	font-size: 1rem;
+	line-height: 1.4;
+	font-weight: 400;
+	transition: opacity .4s;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 20px;
+}
+
+.quick-link__btn:hover {
+	color: #fff !important;
+	opacity: .8;
+}
+
+.quick-link .dashicons {
+	display: block;
+	width: 55px;
+	height: 56px;
+}
+
+.quick-link .dashicons-blog {
+	background: url(../images/common/dashicon-blog.png) no-repeat;
+	background-size: contain;
+}
+.quick-link .dashicons-campaign {
+	background: url(../images/common/dashicon-campaign.png) no-repeat;
+	background-size: contain;
+}
+.quick-link .dashicons-voice {
+	background: url(../images/common/dashicon-voice.png) no-repeat;
+	background-size: contain;
+}
+.quick-link .dashicons-faq {
+	background: url(../images/common/dashicon-faq.png) no-repeat;
+	background-size: contain;
+}
+

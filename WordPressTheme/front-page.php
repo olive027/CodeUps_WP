@@ -306,7 +306,7 @@
 										$cost = $price_license_costs[$i];
 										?>
 								<dt><?php echo nl2br(esc_html($label)); ?></dt>
-								<dd><?php echo esc_html($cost); ?></dd>
+								<dd>¥<?php echo esc_html(number_format($cost)); ?></dd>
 								<?php
 								}
 								?>
@@ -338,7 +338,7 @@
 										$cost = $price_experience_costs[$i];
 										?>
 								<dt><?php echo nl2br(esc_html($label)); ?></dt>
-								<dd><?php echo esc_html($cost); ?></dd>
+								<dd>¥<?php echo esc_html(number_format($cost)); ?></dd>
 								<?php
 								}
 								?>
@@ -370,7 +370,7 @@
 										$cost = $price_fan_costs[$i];
 										?>
 								<dt><?php echo nl2br(esc_html($label)); ?></dt>
-								<dd><?php echo esc_html($cost); ?></dd>
+								<dd>¥<?php echo esc_html(number_format($cost)); ?></dd>
 								<?php
 								}
 								?>
@@ -402,7 +402,7 @@
 										$cost = $price_special_costs[$i];
 								?>
 								<dt><?php echo nl2br(esc_html($label)); ?></dt>
-								<dd><?php echo esc_html($cost); ?></dd>
+								<dd>¥<?php echo esc_html(number_format($cost)); ?></dd>
 								<?php
 								}
 								?>
