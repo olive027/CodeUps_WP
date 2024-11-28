@@ -126,7 +126,7 @@ add_action( 'wp_dashboard_setup', 'add_dashboard_widgets' );
 
 function dashboard_widget_function() {
   echo '<ul class="quick-link">';
-  
+
   // Blog追加リンク
   echo '<li class="quick-link__item">';
   echo '<a href="' . admin_url() . 'post-new.php" class="quick-link__btn">';
@@ -134,7 +134,7 @@ function dashboard_widget_function() {
   echo '＊ブログ＊<br>新規投稿';
   echo '</a>';
   echo '</li>';
-  
+
   // campaign追加リンク
   echo '<li class="quick-link__item">';
   echo '<a href="' . admin_url() . 'post-new.php?post_type=campaign" class="quick-link__btn">';
@@ -142,7 +142,7 @@ function dashboard_widget_function() {
   echo '＊キャンペーン＊<br>記事追加';
   echo '</a>';
   echo '</li>';
-  
+
   // Voice追加リンク
   echo '<li class="quick-link__item">';
   echo '<a href="' . admin_url() . 'post-new.php?post_type=voice" class="quick-link__btn">';
@@ -150,7 +150,7 @@ function dashboard_widget_function() {
   echo '＊お客様の声＊<br>記事追加';
   echo '</a>';
   echo '</li>';
-  
+
   // FAQ追加リンク
   echo '<li class="quick-link__item">';
   echo '<a href="' . admin_url() . 'post.php?post=20&action=edit" class="quick-link__btn">';
@@ -158,14 +158,9 @@ function dashboard_widget_function() {
   echo '＊FAQ＊<br>追加';
   echo '</a>';
   echo '</li>';
-  
-  
+
   echo '</ul>';
 }
-
-
-
-
 
 
 //=============== archive.php有効 =============================================================
